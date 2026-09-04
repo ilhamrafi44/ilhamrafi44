@@ -275,9 +275,12 @@ third-party integrations, and data-privacy practices for genuinely sensitive use
 | **Elteyba GO** | Jamaah portal | [elteybago ↗](https://elteybago.eilhamzah.com/login) |
 | **Aerocam Global Technology** | Drone training centre — corporate site | [aerocam.co.id ↗](https://www.aerocam.co.id/) |
 | **Taiba Cococha** | Trilingual corporate site (EN/ID/AR) + sales CRM | [taibacoco.co.id ↗](https://taibacoco.co.id) |
+| **Gudang Dus Bandung** | B2B custom packaging catalogue — products, categories, tags, client showcase, self-serve admin | [gudangdusbandung.com ↗](https://gudangdusbandung.com/) |
 | **Hasanain Center** | Company profile + registration system | [instagram ↗](https://www.instagram.com/hasanain.center/) |
 | **Cahaya Al-Kahfi** | Donation platform | [facebook ↗](https://web.facebook.com/p/Cahaya-Al-Kahfi-100063858983042/) |
 | **SmartHajj** | Umrah &amp; Hajj platform — Laravel + Flutter | smarthajj.co.id |
+
+<sub>The packaging site's <code>&lt;title&gt;</code> ends with <b>"It's Over 9000!"</b>. That was a deliberate decision, made by a grown adult, for a company that sells cardboard. I regret nothing.</sub>
 
 **Retired** — shipped, served their purpose, then the domains lapsed: CoffeeLabs Journal
 (2023), Sabilec / PT Saudara Bina Electric (2023), Gravilla.id hotel &amp; ticket booking
