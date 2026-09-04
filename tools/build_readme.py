@@ -1,5 +1,5 @@
 R = "https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets"
-V = "v=3"
+V = "v=4"
 
 def pic(name, alt, **kw):
     """One physical line: multi-line <picture> makes GitHub split the <p>."""
@@ -371,6 +371,8 @@ stores? That is my favourite kind of conversation.
 - ✉️ [ilhamrafi44@gmail.com](mailto:ilhamrafi44@gmail.com)
 - 📍 Jakarta, Indonesia · UTC+7
 
+{pic("cat-wave", "A cat waving hello", height="130")}
+
 <details>
 <summary><sub>🤓 how this profile is built (for the three of you who scrolled this far)</sub></summary>
 
@@ -386,7 +388,10 @@ blur, flat saturated colour, and Arial Black doing a lot of heavy lifting. Text 
 **measured in a real browser** rather than estimated, because Arial Black is far wider than
 any per-character table predicts and labels were spilling out of their boxes.
 
-The stamp wobbles, the cursor blinks, and both stop if you have
+There are three cats. One sits in the terminal with its tail going, one is asleep at the foot
+of the stack emitting Z's, and one waves at the bottom. They are not decorative. They are load-bearing.
+
+The stamp wobbles, the cursor blinks, the cats move, and all of it stops if you have
 `prefers-reduced-motion` turned on.
 
 ```bash

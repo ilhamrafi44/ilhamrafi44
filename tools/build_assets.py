@@ -191,6 +191,11 @@ def build_hero(t):
     a.append(text(CX+34, CY+356, "java · spring modulith · next.js · react native · kotlin multiplatform · mikrotik",
                   12, t["sub"], "m", 400))
 
+    # a cat, occupying the gap that was previously just empty grid
+    cat_m, cat_css = cat_sitting()
+    css += cat_css
+    a.append(f'<g transform="translate(636,198) scale(1.17)">{cat_m}</g>')
+
     # ── the stamp: peak "trust me bro" energy
     scx, scy, R = 952, 200, 110
     defs.append(f'<path id="arc" fill="none" d="M 0,-{R-19} A {R-19},{R-19} 0 1,1 0,{R-19} A {R-19},{R-19} 0 1,1 0,-{R-19}"/>')
@@ -296,7 +301,11 @@ def build_stack(t):
                 x += w + GAP
             y += RH + GAP
         y += RGAP - GAP
-    return wrap(W, y - RGAP + GAP + SH + 6, [sym(k, t) for k in sorted(used)], a, [], "Stack")
+    H = y - RGAP + GAP + SH + 6
+    nap, css = cat_sleeping()
+    css.append("@media(prefers-reduced-motion:reduce){*{animation:none!important}}")
+    a.append(f'<g transform="translate(946,{H + 4})">{nap}</g>')
+    return wrap(W, H + 118, [sym(k, t) for k in sorted(used)], a, css, "Stack")
 
 # ─────────────────────────────────────────────────────── section headers
 SECTIONS = [("WHOAMI","yellow"), ("NOW","cyan"), ("THE ARSENAL","lime"), ("WAR STORIES","pink"),
@@ -335,6 +344,101 @@ def build_badge(slug, label, col, glyph, t):
         a.append(f'<g transform="translate({2+PADX},{iy:.1f}) scale({ICON/24:.4f})">{inner}</g>')
     a.append(text(2 + PADX + ICON + 11, 2 + H/2 + 6, label, 15, "#000000", "d", 900))
     return wrap(round(w + SH + 4), H + SH + 4, [], a, [], label)
+
+# ─────────────────────────────────────────────────────────────────── cats
+# Brutalist cats: flat fill, 3px black outline, no gradients. Each returns
+# (markup, css) so the caller can merge keyframes into its own <style>.
+CAT = "#FF8A3D"      # one orange tabby, reused everywhere, so it reads as
+CAT_EAR = "#FF9EC4"  # the same animal rather than three unrelated cats
+
+
+def _face(cx, cy, r, ink):
+    """Shared muzzle: eyes that blink, nose, whiskers."""
+    o = []
+    for ex in (cx - r * 0.35, cx + r * 0.35):
+        o.append(f'<ellipse class="eye" cx="{ex:.1f}" cy="{cy:.1f}" rx="{r*0.15:.1f}" '
+                 f'ry="{r*0.20:.1f}" fill="{ink}"/>')
+    o.append(f'<path d="M {cx-r*0.13:.1f},{cy+r*0.28:.1f} L {cx+r*0.13:.1f},{cy+r*0.28:.1f} '
+             f'L {cx:.1f},{cy+r*0.44:.1f} Z" fill="{ink}"/>')
+    for sx in (-1, 1):
+        for k, dy in enumerate((-0.10, 0.06, 0.22)):
+            x1 = cx + sx * r * 0.42
+            o.append(f'<line x1="{x1:.1f}" y1="{cy+r*0.30+dy*r*0.30:.1f}" '
+                     f'x2="{x1 + sx*r*0.62:.1f}" y2="{cy+r*0.22+dy*r*0.55:.1f}" '
+                     f'stroke="{ink}" stroke-width="2.4" stroke-linecap="round"/>')
+    return "".join(o)
+
+
+def cat_sitting(ink="#000000", wave=False):
+    """Sitting tabby. Tail swishes; one paw waves if asked (maneki-neko)."""
+    css = ["@keyframes tail{0%,100%{transform:rotate(-13deg)}50%{transform:rotate(15deg)}}",
+           "@keyframes eye{0%,92%,100%{transform:scaleY(1)}95.5%{transform:scaleY(.08)}}",
+           ".tail{transform-box:fill-box;transform-origin:8% 92%;animation:tail 2.6s ease-in-out infinite}",
+           ".eye{transform-box:fill-box;transform-origin:center;animation:eye 4.6s ease-in-out infinite}"]
+    o = [f'<g class="tail"><path d="M 92,140 C 128,140 138,104 122,76" fill="none" stroke="{ink}" '
+         f'stroke-width="17" stroke-linecap="round"/><path d="M 92,140 C 128,140 138,104 122,76" '
+         f'fill="none" stroke="{CAT}" stroke-width="10" stroke-linecap="round"/></g>',
+         # ears first so the head outline sits on top of their bases
+         f'<path d="M 32,44 L 26,4 L 60,28 Z" fill="{CAT}" stroke="{ink}" stroke-width="3" stroke-linejoin="round"/>',
+         f'<path d="M 88,44 L 94,4 L 60,28 Z" fill="{CAT}" stroke="{ink}" stroke-width="3" stroke-linejoin="round"/>',
+         f'<path d="M 36,38 L 33,15 L 52,28 Z" fill="{CAT_EAR}"/>',
+         f'<path d="M 84,38 L 87,15 L 68,28 Z" fill="{CAT_EAR}"/>',
+         f'<path d="M 24,150 C 24,102 38,86 60,86 C 82,86 96,102 96,150 Z" fill="{CAT}" '
+         f'stroke="{ink}" stroke-width="3" stroke-linejoin="round"/>',
+         f'<rect x="30" y="136" width="24" height="15" rx="7" fill="{CAT}" stroke="{ink}" stroke-width="3"/>',
+         f'<rect x="66" y="136" width="24" height="15" rx="7" fill="{CAT}" stroke="{ink}" stroke-width="3"/>',
+         f'<circle cx="60" cy="62" r="34" fill="{CAT}" stroke="{ink}" stroke-width="3"/>',
+         # tabby stripes
+         f'<path d="M 52,32 v 9 M 60,30 v 10 M 68,32 v 9" stroke="{ink}" stroke-width="3" stroke-linecap="round"/>',
+         _face(60, 62, 34, ink)]
+    if wave:
+        css.append("@keyframes wave{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(26deg)}}")
+        css.append(".paw{transform-box:fill-box;transform-origin:15% 96%;"
+                   "animation:wave 1.1s ease-in-out infinite}")
+        arc = "M 88,112 C 112,106 124,78 120,50"
+        o.append(f'<g class="paw"><path d="{arc}" fill="none" stroke="{ink}" stroke-width="17" '
+                 f'stroke-linecap="round"/><path d="{arc}" fill="none" stroke="{CAT}" stroke-width="10" '
+                 f'stroke-linecap="round"/>'
+                 f'<circle cx="120" cy="44" r="13" fill="{CAT}" stroke="{ink}" stroke-width="3"/></g>')
+        o.append(f'<path d="M 34,88 Q 60,102 86,88" fill="none" stroke="{ink}" stroke-width="3.5"/>')
+        o.append(f'<circle cx="60" cy="98" r="8" fill="{POP["yellow"]}" stroke="{ink}" stroke-width="3"/>')
+    return "".join(o), css
+
+
+def cat_sleeping(ink="#000000"):
+    """Curled, breathing, emitting Z's. Cats sleep on your work; so does this one."""
+    css = ["@keyframes breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.045)}}",
+           "@keyframes zzz{0%{opacity:0;transform:translate(0,6px) scale(.7)}"
+           "25%{opacity:1}100%{opacity:0;transform:translate(16px,-30px) scale(1.15)}}",
+           ".body{transform-box:fill-box;transform-origin:center bottom;"
+           "animation:breathe 3.4s ease-in-out infinite}",
+           ".z{animation:zzz 3.6s ease-in-out infinite}"]
+    o = [f'<g class="body">',
+         f'<path d="M 214,84 C 208,116 150,120 116,104" fill="none" stroke="{ink}" stroke-width="15" stroke-linecap="round"/>',
+         f'<path d="M 214,84 C 208,116 150,120 116,104" fill="none" stroke="{CAT}" stroke-width="9" stroke-linecap="round"/>',
+         f'<ellipse cx="126" cy="68" rx="94" ry="37" fill="{CAT}" stroke="{ink}" stroke-width="3"/>',
+         f'<path d="M 28,60 L 20,26 L 52,40 Z" fill="{CAT}" stroke="{ink}" stroke-width="3" stroke-linejoin="round"/>',
+         f'<path d="M 76,48 L 88,20 L 94,52 Z" fill="{CAT}" stroke="{ink}" stroke-width="3" stroke-linejoin="round"/>',
+         f'<circle cx="56" cy="72" r="35" fill="{CAT}" stroke="{ink}" stroke-width="3"/>',
+         f'<path d="M 38,68 q 9,9 18,0 M 64,68 q 9,9 18,0" fill="none" stroke="{ink}" '
+         f'stroke-width="3.2" stroke-linecap="round"/>',
+         f'<path d="M 50,84 L 62,84 L 56,92 Z" fill="{ink}"/>',
+         f'<path d="M 132,42 v 9 M 150,40 v 10 M 168,43 v 9" stroke="{ink}" stroke-width="3" stroke-linecap="round"/>',
+         '</g>']
+    for i, (dx, dy, sz) in enumerate(((96, 18, 20), (120, 4, 26), (148, -8, 32))):
+        o.append(f'<text class="z" style="animation-delay:{i*1.2:.1f}s" x="{dx}" y="{dy}" '
+                 f'font-family="{DISPLAY}" font-size="{sz}" font-weight="900" fill="{ink}">Z</text>')
+    return "".join(o), css
+
+
+def build_cat_wave(t):
+    """Standalone maneki-neko for the contact section."""
+    m, css = cat_sitting(wave=True)
+    css.append("@media(prefers-reduced-motion:reduce){*{animation:none!important}}")
+    body = [f'<g transform="translate(16,34)">{m}</g>',
+            text(178, 104, "HALO!", 32, t["text"], "d", 900),
+            text(178, 132, "(the cat insists)", 13, t["sub"], "m", 400)]
+    return wrap(372, 214, [], body, css, "A cat waving hello")
 
 # ───────────────────────────────────────────────────── case-study banner
 BANNERS = [("isp", "ISP PLATFORM", "27 MODULES \u00b7 8 DATABASES \u00b7 ONE MONOLITH", "yellow")]
@@ -383,6 +487,7 @@ if __name__ == "__main__":
         for title, col in SECTIONS:
             slug = title.lower().replace(" ", "-")
             total += emit(f"sec-{slug}-{mode}.svg", build_section(title, col, t))
+        total += emit(f"cat-wave-{mode}.svg", build_cat_wave(t))
         for slug, title, sub, col in BANNERS:
             total += emit(f"banner-{slug}-{mode}.svg", build_banner(title, sub, col, t))
         for slug, label, col, glyph in BADGES:
