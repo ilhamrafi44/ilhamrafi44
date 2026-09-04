@@ -191,6 +191,9 @@ def build_hero(t):
     a.append(text(CX+34, CY+356, "java · spring modulith · next.js · react native · kotlin multiplatform · mikrotik",
                   12, t["sub"], "m", 400))
 
+    for i, (px, py, rot) in enumerate(((624, 352, -14), (668, 330, -8), (712, 344, -18), (756, 322, -6))):
+        a.append(paw(px, py, rot, 0.9, t["text"], 0.13 + i * 0.03))
+
     # a cat, occupying the gap that was previously just empty grid
     cat_m, cat_css = cat_sitting()
     css += cat_css
@@ -214,7 +217,8 @@ def build_hero(t):
 STATS = [("6+", "YEARS SHIPPING", "yellow", -1.3),
          ("11", "COMPANIES & CLIENTS", "cyan", 1.1),
          ("25+", "PRODUCTS SHIPPED", "lime", -1.0),
-         ("0", "KNOWN BUGS *", "pink", 1.4)]
+         ("0", "KNOWN BUGS *", "pink", 1.4),
+         ("@CAT", "CAT NAMED CIMOL", "orange", -1.6)]
 
 def build_stats(t):
     W, H, SH = 1200, 176, 7
@@ -223,9 +227,12 @@ def build_stats(t):
     a = []
     for i, (num, label, col, rot) in enumerate(STATS):
         x = 6 + i * (bw_ + gap)
-        g = [block(0, 0, bw_, 132, POP[col], t, shadow=SH, bw=3.5),
-             text(bw_/2, 76, num, 54, "#000000", "d", 900, anchor="middle"),
-             text(bw_/2, 106, label, 11, "#000000", "d", 900, anchor="middle", tracking=1.1)]
+        g = [block(0, 0, bw_, 132, POP[col], t, shadow=SH, bw=3.5)]
+        if num == "@CAT":
+            g.append(f'<g transform="translate({bw_/2 - 30:.1f},18) scale(.8)">{cat_face()}</g>')
+        else:
+            g.append(text(bw_/2, 76, num, 54, "#000000", "d", 900, anchor="middle"))
+        g.append(text(bw_/2, 106, label, 11, "#000000", "d", 900, anchor="middle", tracking=1.1))
         a.append(f'<g transform="translate({x:.1f},20) rotate({rot} {bw_/2:.1f} 66)">{"".join(g)}</g>')
     return wrap(W, H, [], a, [], "By the numbers")
 
@@ -440,6 +447,68 @@ def build_cat_wave(t):
             text(178, 132, "(the cat insists)", 13, t["sub"], "m", 400)]
     return wrap(372, 214, [], body, css, "A cat waving hello")
 
+
+def cat_face(r=1.0, ink="#000000"):
+    """Just the head — for places too small to hold a whole cat."""
+    return "".join([
+        f'<path d="M 14,26 L 9,2 L 33,17 Z" fill="{CAT}" stroke="{ink}" stroke-width="2.6" stroke-linejoin="round"/>',
+        f'<path d="M 62,26 L 67,2 L 43,17 Z" fill="{CAT}" stroke="{ink}" stroke-width="2.6" stroke-linejoin="round"/>',
+        f'<path d="M 17,22 L 15,9 L 28,17 Z" fill="{CAT_EAR}"/>',
+        f'<path d="M 59,22 L 61,9 L 48,17 Z" fill="{CAT_EAR}"/>',
+        f'<circle cx="38" cy="42" r="27" fill="{CAT}" stroke="{ink}" stroke-width="2.6"/>',
+        f'<path d="M 31,18 v 7 M 38,16 v 8 M 45,18 v 7" stroke="{ink}" stroke-width="2.6" stroke-linecap="round"/>',
+        _face(38, 42, 27, ink),
+    ])
+
+
+def paw(x, y, rot, sc, fill, op):
+    """A single paw print."""
+    d = [f'<ellipse cx="0" cy="4" rx="7" ry="5.6"/>']
+    for tx, ty in ((-6.4, -4.2), (-2.2, -6.6), (2.2, -6.6), (6.4, -4.2)):
+        d.append(f'<circle cx="{tx}" cy="{ty}" r="2.5"/>')
+    return (f'<g transform="translate({x},{y}) rotate({rot}) scale({sc})" fill="{fill}" '
+            f'opacity="{op}">{"".join(d)}</g>')
+
+
+def cat_walking(ink="#000000"):
+    """Side view. Legs swing, tail swishes, whole cat crosses the page."""
+    css = ["@keyframes stroll{0%{transform:translateX(-190px)}100%{transform:translateX(1290px)}}",
+           "@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}",
+           "@keyframes legf{0%{transform:rotate(-20deg)}100%{transform:rotate(20deg)}}",
+           "@keyframes legb{0%{transform:rotate(20deg)}100%{transform:rotate(-20deg)}}",
+           "@keyframes swish{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(12deg)}}",
+           ".stroll{animation:stroll 17s linear infinite}",
+           ".bob{animation:bob .52s ease-in-out infinite}",
+           ".lf{transform-box:fill-box;transform-origin:50% 4%;animation:legf .52s ease-in-out infinite alternate}",
+           ".lb{transform-box:fill-box;transform-origin:50% 4%;animation:legb .52s ease-in-out infinite alternate}",
+           ".sw{transform-box:fill-box;transform-origin:6% 90%;animation:swish 1.5s ease-in-out infinite}"]
+    leg = lambda x, c: (f'<rect class="{c}" x="{x}" y="46" width="11" height="38" rx="5" '
+                        f'fill="{CAT}" stroke="{ink}" stroke-width="3"/>')
+    o = [f'<g class="sw"><path d="M 20,50 C -2,44 -6,20 8,8" fill="none" stroke="{ink}" stroke-width="16" '
+         f'stroke-linecap="round"/><path d="M 20,50 C -2,44 -6,20 8,8" fill="none" stroke="{CAT}" '
+         f'stroke-width="9" stroke-linecap="round"/></g>',
+         leg(34, "lb"), leg(86, "lf"),
+         f'<ellipse cx="66" cy="38" rx="46" ry="25" fill="{CAT}" stroke="{ink}" stroke-width="3"/>',
+         leg(50, "lf"), leg(100, "lb"),
+         f'<path d="M 100,22 L 96,-2 L 118,12 Z" fill="{CAT}" stroke="{ink}" stroke-width="3" stroke-linejoin="round"/>',
+         f'<path d="M 134,22 L 140,0 L 118,14 Z" fill="{CAT}" stroke="{ink}" stroke-width="3" stroke-linejoin="round"/>',
+         f'<circle cx="118" cy="34" r="25" fill="{CAT}" stroke="{ink}" stroke-width="3"/>',
+         f'<path d="M 110,12 v 7 M 118,10 v 8 M 126,12 v 7" stroke="{ink}" stroke-width="2.8" stroke-linecap="round"/>',
+         _face(118, 34, 25, ink)]
+    return f'<g class="bob">{"".join(o)}</g>', css
+
+
+def build_walk(t):
+    """A divider: Cimol crosses the page on a hard black rule."""
+    m, css = cat_walking()
+    css.append("@media(prefers-reduced-motion:reduce){.stroll{animation:none;transform:translateX(500px)}"
+               "*{animation:none!important}}")
+    body = [f'<rect x="0" y="92" width="1200" height="5" fill="{t["ink"]}"/>']
+    for i, x in enumerate((90, 210, 330, 450)):
+        body.append(paw(x, 84, -8, 0.85, t["ink"], 0.16 + i * 0.04))
+    body.append(f'<g class="stroll"><g transform="translate(0,8)">{m}</g></g>')
+    return wrap(1200, 104, [], body, css, "A cat walking across the page")
+
 # ───────────────────────────────────────────────────── case-study banner
 BANNERS = [("isp", "ISP PLATFORM", "27 MODULES \u00b7 8 DATABASES \u00b7 ONE MONOLITH", "yellow")]
 
@@ -451,8 +520,11 @@ def build_banner(title, sub, col, t):
          text(24, 30, "ARCHITECTURE CASE STUDY", 12, POP[col], "m", 700, tracking=2.2),
          text(W - 30 - SH, 30, "github.com/ilhamrafi44", 12, POP[col], "m", 400, anchor="end"),
          text(34, 108, title, 56, "#000000", "d", 900),
-         text(34, 140, sub, 15, "#000000", "d", 900, tracking=1.2)]
-    return wrap(W, H, [], a, [], f"{title} - architecture case study")
+         text(34, 140, sub, 15, "#000000", "d", 900, tracking=1.2),
+         f'<g transform="translate(980,52) scale(.72)">{cat_sitting()[0]}</g>']
+    _, ccss = cat_sitting()
+    ccss.append("@media(prefers-reduced-motion:reduce){*{animation:none!important}}")
+    return wrap(W, H, [], a, ccss, f"{title} - architecture case study")
 
 
 # ─────────────────────────────────────────────────────────────────── shell
@@ -463,15 +535,22 @@ def wrap(w, h, defs, body, css, title):
             f'viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" aria-label="{esc(title)}" '
             f'fill="none">{style}{d}{"".join(body)}</svg>')
 
+MANIFEST = {}
+
+
 def emit(name, svg):
     # Parse before writing: a stray quote in a font stack silently produces a
     # file that every browser refuses to render.
-    import xml.etree.ElementTree as ET
+    import xml.etree.ElementTree as ET, hashlib
     try:
         ET.fromstring(svg)
     except ET.ParseError as e:
         raise SystemExit(f"malformed SVG in {name}: {e}")
-    p = os.path.join(OUT, name)
+    key = name[:-4] if name.endswith(".svg") else name
+    digest = hashlib.sha256(svg.encode()).hexdigest()[:8]
+    fname = f"{key}.{digest}.svg"
+    MANIFEST[key] = fname
+    p = os.path.join(OUT, fname)
     with open(p, "w", encoding="utf-8") as fh:
         fh.write(svg)
     return os.path.getsize(p)
@@ -488,8 +567,12 @@ if __name__ == "__main__":
             slug = title.lower().replace(" ", "-")
             total += emit(f"sec-{slug}-{mode}.svg", build_section(title, col, t))
         total += emit(f"cat-wave-{mode}.svg", build_cat_wave(t))
+        total += emit(f"cat-walk-{mode}.svg", build_walk(t))
         for slug, title, sub, col in BANNERS:
             total += emit(f"banner-{slug}-{mode}.svg", build_banner(title, sub, col, t))
         for slug, label, col, glyph in BADGES:
             total += emit(f"badge-{slug}-{mode}.svg", build_badge(slug, label, col, glyph, t))
-    print(f"  {len(os.listdir(OUT))} files, {total/1024:.0f} KB")
+    import json
+    with open(os.path.join(OUT, "manifest.json"), "w", encoding="utf-8") as fh:
+        json.dump(MANIFEST, fh, indent=1, sort_keys=True)
+    print(f"  {len(MANIFEST)} assets, {total/1024:.0f} KB (content-hashed)")

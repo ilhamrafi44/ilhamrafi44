@@ -1,11 +1,19 @@
+import json, os
+
 R = "https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets"
-V = "v=4"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+MANIFEST = json.load(open(os.path.join(ROOT, "assets", "manifest.json"), encoding="utf-8"))
+
+
+def url(key):
+    return f"{R}/{MANIFEST[key]}"
+
 
 def pic(name, alt, **kw):
     """One physical line: multi-line <picture> makes GitHub split the <p>."""
     attrs = "".join(f' {k}="{v}"' for k, v in kw.items())
-    return (f'<picture><source media="(prefers-color-scheme: dark)" srcset="{R}/{name}-dark.svg?{V}">'
-            f'<img alt="{alt}" src="{R}/{name}-light.svg?{V}"{attrs}></picture>')
+    return (f'<picture><source media="(prefers-color-scheme: dark)" srcset="{url(name + "-dark")}">'
+            f'<img alt="{alt}" src="{url(name + "-light")}"{attrs}></picture>')
 
 def sec(slug, title):
     return f'### {pic("sec-" + slug, title, height="48")}'
@@ -52,6 +60,10 @@ $ cat ~/.red_flags
 3. "It's a small refactor" is a sentence I have said out loud, in public,
    to people who trusted me.
 
+$ cat ~/.cat
+Cimol. Orange. Sits on the keyboard exclusively during deploys.
+Has never once been wrong about anything, and knows it.
+
 $ sudo make me a sandwich
 Okay.
 ```
@@ -71,6 +83,8 @@ Okay.
 {sec("the-arsenal", "THE ARSENAL")}
 
 {pic("stack", "Stack: backend, frontend, mobile, data, infrastructure, network, payments, systems", width="100%")}
+
+{pic("cat-walk", "Cimol walking across the page", width="100%")}
 
 {sec("war-stories", "WAR STORIES")}
 
@@ -362,6 +376,8 @@ I choose to read that as a good sign.</sub>
 
 **Universitas Darma Persada** · Jakarta — Bachelor of English Literature, GPA 3.60 / 4.00 · 2018 — 2023
 
+{pic("cat-walk", "Cimol walking across the page", width="100%")}
+
 {sec("say-hi", "SAY HI")}
 
 Got a system that has to balance to the cent, stay online at 3 AM, or ship to both app
@@ -388,8 +404,15 @@ blur, flat saturated colour, and Arial Black doing a lot of heavy lifting. Text 
 **measured in a real browser** rather than estimated, because Arial Black is far wider than
 any per-character table predicts and labels were spilling out of their boxes.
 
-There are three cats. One sits in the terminal with its tail going, one is asleep at the foot
-of the stack emitting Z's, and one waves at the bottom. They are not decorative. They are load-bearing.
+The cat is **Cimol**. She is orange, which is the entire personality. She sits in the terminal,
+sleeps at the foot of the stack, walks across the page twice, occupies a stat tile she did not
+earn, loafs on the case-study banner, waves at the bottom, and has left paw prints on the hero.
+She is not decorative. She is load-bearing.
+
+Assets are content-hashed (`hero-dark.<hash>.svg`) because `raw.githubusercontent.com` runs
+Varnish and ignores the query string in its cache key — `?v=2` never busted anything, and a
+changed asset kept serving stale for five minutes. A hash in the filename is a new path, so it
+cannot go stale.
 
 The stamp wobbles, the cursor blinks, the cats move, and all of it stops if you have
 `prefers-reduced-motion` turned on.

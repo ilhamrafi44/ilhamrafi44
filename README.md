@@ -1,8 +1,8 @@
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/hero-dark.svg?v=4"><img alt="Bonsky - Senior Full Stack Engineer" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/hero-light.svg?v=4" width="100%"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/hero-dark.47d5def2.svg"><img alt="Bonsky - Senior Full Stack Engineer" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/hero-light.42c30a4d.svg" width="100%"></picture>
 
-<a href="https://www.linkedin.com/in/ilhamrafi44/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-linkedin-dark.svg?v=4"><img alt="LinkedIn" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-linkedin-light.svg?v=4" height="44"></picture></a> <a href="mailto:ilhamrafi44@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-email-dark.svg?v=4"><img alt="Email" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-email-light.svg?v=4" height="44"></picture></a> <a href="https://sblnet.id"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-sblnet-dark.svg?v=4"><img alt="SBLNET" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-sblnet-light.svg?v=4" height="44"></picture></a>
+<a href="https://www.linkedin.com/in/ilhamrafi44/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-linkedin-dark.55e769cc.svg"><img alt="LinkedIn" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-linkedin-light.70be2a4c.svg" height="44"></picture></a> <a href="mailto:ilhamrafi44@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-email-dark.c259dab0.svg"><img alt="Email" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-email-light.e782588f.svg" height="44"></picture></a> <a href="https://sblnet.id"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-sblnet-dark.31a28344.svg"><img alt="SBLNET" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-sblnet-light.333f542d.svg" height="44"></picture></a>
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-whoami-dark.svg?v=4"><img alt="WHOAMI" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-whoami-light.svg?v=4" height="48"></picture>
+### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-whoami-dark.1a746999.svg"><img alt="WHOAMI" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-whoami-light.6cb2b58d.svg" height="48"></picture>
 
 ```console
 $ whoami
@@ -37,15 +37,19 @@ $ cat ~/.red_flags
 3. "It's a small refactor" is a sentence I have said out loud, in public,
    to people who trusted me.
 
+$ cat ~/.cat
+Cimol. Orange. Sits on the keyboard exclusively during deploys.
+Has never once been wrong about anything, and knows it.
+
 $ sudo make me a sandwich
 Okay.
 ```
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-dark.svg?v=4"><img alt="6+ years shipping, 11 companies and clients, 25+ products shipped, 0 known bugs" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-light.svg?v=4" width="100%"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-dark.ae0043d1.svg"><img alt="6+ years shipping, 11 companies and clients, 25+ products shipped, 0 known bugs" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-light.96b12cdd.svg" width="100%"></picture>
 
 <sub><b>*</b> the load-bearing word in that last box is <i>known</i>.</sub>
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-now-dark.svg?v=4"><img alt="NOW" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-now-light.svg?v=4" height="48"></picture>
+### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-now-dark.a8dd3a4d.svg"><img alt="NOW" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-now-light.e0cb4062.svg" height="48"></picture>
 
 - 🛰️ **Keeping Jakarta online** at **[SBLNET](https://sblnet.id)** — an ISP platform where 27 Spring Modulith modules, 8 PostgreSQL databases and a rack of MikroTik routers collectively decide whether your stream buffers tonight. Genuinely no pressure.
 - 🏠 **Two property platforms in production** — [BigProperty](https://bigproperty.online) and [White Box](https://propertywhitebox.com). Real bookings, real money, real messages at 2 AM.
@@ -53,11 +57,13 @@ Okay.
 - 🍎 **[mfu-macos](https://github.com/ilhamrafi44/mfu-macos)** — a native Xiaomi bootloader-unlock CLI for Apple Silicon, written entirely out of spite for having to boot Windows.
 - 📈 **nocturads** — a CPA routing engine in Go + Fiber + SvelteKit + TimescaleDB, because apparently my idea of resting is writing another backend.
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-the-arsenal-dark.svg?v=4"><img alt="THE ARSENAL" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-the-arsenal-light.svg?v=4" height="48"></picture>
+### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-the-arsenal-dark.aa351f5f.svg"><img alt="THE ARSENAL" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-the-arsenal-light.f30ca945.svg" height="48"></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stack-dark.svg?v=4"><img alt="Stack: backend, frontend, mobile, data, infrastructure, network, payments, systems" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stack-light.svg?v=4" width="100%"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stack-dark.fff11e63.svg"><img alt="Stack: backend, frontend, mobile, data, infrastructure, network, payments, systems" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stack-light.3c757357.svg" width="100%"></picture>
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-war-stories-dark.svg?v=4"><img alt="WAR STORIES" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-war-stories-light.svg?v=4" height="48"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/cat-walk-dark.9f3959a7.svg"><img alt="Cimol walking across the page" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/cat-walk-light.f71a42a9.svg" width="100%"></picture>
+
+### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-war-stories-dark.efb0a1eb.svg"><img alt="WAR STORIES" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-war-stories-light.733c2bf1.svg" height="48"></picture>
 
 > Most of what I have shipped lives in employer and client repositories — private, and in
 > several cases repositories my access ended with the contract. Eight public repos is not the
@@ -256,7 +262,7 @@ A coconut-shell charcoal exporter. The site sells in three languages; the CRM ru
 
 </details>
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-career-dark.svg?v=4"><img alt="CAREER" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-career-light.svg?v=4" height="48"></picture>
+### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-career-dark.e1319bfe.svg"><img alt="CAREER" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-career-light.3efa34f2.svg" height="48"></picture>
 
 | Role | Company | Period |
 |---|---|---|
@@ -304,7 +310,7 @@ third-party integrations, and data-privacy practices for genuinely sensitive use
 
 </details>
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-shipped-it-dark.svg?v=4"><img alt="SHIPPED IT" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-shipped-it-light.svg?v=4" height="48"></picture>
+### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-shipped-it-dark.4fe94a1f.svg"><img alt="SHIPPED IT" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-shipped-it-light.449e25ce.svg" height="48"></picture>
 
 **Live right now:**
 
@@ -337,7 +343,7 @@ third-party integrations, and data-privacy practices for genuinely sensitive use
 (2023), Sabilec / PT Saudara Bina Electric (2023), Gravilla.id hotel &amp; ticket booking
 (2022), Safara Digitech (2020), Segment Events (2020), newstvri.com (2017).
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-talked-at-people-dark.svg?v=4"><img alt="TALKED AT PEOPLE" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-talked-at-people-light.svg?v=4" height="48"></picture>
+### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-talked-at-people-dark.8da88194.svg"><img alt="TALKED AT PEOPLE" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-talked-at-people-light.b709c748.svg" height="48"></picture>
 
 - **2022** — Speaker, *"Web Application in the World of Work"* — HMIK Talk, Pertamina University
 - **2022** — Main speaker, *"Ngoding Bareng"* — Permikomnas Jakarta
@@ -347,7 +353,9 @@ I choose to read that as a good sign.</sub>
 
 **Universitas Darma Persada** · Jakarta — Bachelor of English Literature, GPA 3.60 / 4.00 · 2018 — 2023
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-say-hi-dark.svg?v=4"><img alt="SAY HI" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-say-hi-light.svg?v=4" height="48"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/cat-walk-dark.9f3959a7.svg"><img alt="Cimol walking across the page" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/cat-walk-light.f71a42a9.svg" width="100%"></picture>
+
+### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-say-hi-dark.d719ca39.svg"><img alt="SAY HI" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-say-hi-light.58b2cdd9.svg" height="48"></picture>
 
 Got a system that has to balance to the cent, stay online at 3 AM, or ship to both app
 stores? That is my favourite kind of conversation.
@@ -356,7 +364,7 @@ stores? That is my favourite kind of conversation.
 - ✉️ [ilhamrafi44@gmail.com](mailto:ilhamrafi44@gmail.com)
 - 📍 Jakarta, Indonesia · UTC+7
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/cat-wave-dark.svg?v=4"><img alt="A cat waving hello" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/cat-wave-light.svg?v=4" height="130"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/cat-wave-dark.fbb2cb0f.svg"><img alt="A cat waving hello" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/cat-wave-light.f24888f9.svg" height="130"></picture>
 
 <details>
 <summary><sub>🤓 how this profile is built (for the three of you who scrolled this far)</sub></summary>
@@ -373,8 +381,15 @@ blur, flat saturated colour, and Arial Black doing a lot of heavy lifting. Text 
 **measured in a real browser** rather than estimated, because Arial Black is far wider than
 any per-character table predicts and labels were spilling out of their boxes.
 
-There are three cats. One sits in the terminal with its tail going, one is asleep at the foot
-of the stack emitting Z's, and one waves at the bottom. They are not decorative. They are load-bearing.
+The cat is **Cimol**. She is orange, which is the entire personality. She sits in the terminal,
+sleeps at the foot of the stack, walks across the page twice, occupies a stat tile she did not
+earn, loafs on the case-study banner, waves at the bottom, and has left paw prints on the hero.
+She is not decorative. She is load-bearing.
+
+Assets are content-hashed (`hero-dark.<hash>.svg`) because `raw.githubusercontent.com` runs
+Varnish and ignores the query string in its cache key — `?v=2` never busted anything, and a
+changed asset kept serving stale for five minutes. A hash in the filename is a new path, so it
+cannot go stale.
 
 The stamp wobbles, the cursor blinks, the cats move, and all of it stops if you have
 `prefers-reduced-motion` turned on.
