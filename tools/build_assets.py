@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """
-Generate theme-aware SVG assets for github.com/ilhamrafi44 profile README.
+Neo-brutalist SVG assets for github.com/ilhamrafi44.
 
-Everything is self-hosted: no shields.io, no third-party card services.
-Each asset is emitted twice (dark/light) and swapped in the README with
-<picture media="(prefers-color-scheme: dark)"> so it blends into GitHub's
-own canvas instead of sitting on it as an obvious box.
+Thick black outlines, hard offset shadows, loud flat colour, zero gradients.
+Every asset is emitted twice (dark/light) and swapped in the README with
+<picture media="(prefers-color-scheme: dark)">.
+
+Text widths are measured in-browser (see MEASURED) rather than estimated,
+because Arial Black is far wider than any per-character table predicts.
 """
 import os, re, html
 
@@ -13,461 +15,359 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ICONS = os.path.join(ROOT, "tools", "icons")
 OUT = os.path.join(ROOT, "assets")
 
-# ─────────────────────────────────────────────────────────── theme
+# ───────────────────────────────────────────────────────────────── palette
+POP = dict(yellow="#FFE600", pink="#FF3D8B", cyan="#22D3EE",
+           lime="#B8FF29", orange="#FF7A2F", purple="#A66BFF")
+
 THEMES = {
-    "dark": dict(
-        text="#e6edf3", strong="#ffffff", muted="#8b949e", faint="#6e7681",
-        surface="#161b22", surface2="#0f141a", border="#30363d",
-        accent="#00E5A0", accent2="#8B5CFF", accent3="#FFB020",
-        mono="#e6edf3", glow=0.13, grid=0.055, canvas="#0d1117",
-    ),
-    "light": dict(
-        text="#1f2328", strong="#010409", muted="#59636e", faint="#818b98",
-        surface="#f6f8fa", surface2="#ffffff", border="#d1d9e0",
-        accent="#00875A", accent2="#6740D6", accent3="#9A6700",
-        mono="#1f2328", glow=0.10, grid=0.05, canvas="#ffffff",
-    ),
+    "light": dict(paper="#FFFFFF", panel="#FFFFFF", ink="#000000",
+                  text="#000000", sub="#3D3D3D", grid="#000000", gridop=".07"),
+    "dark":  dict(paper="#0D1117", panel="#161B22", ink="#FFFFFF",
+                  text="#FFFFFF", sub="#B7BEC7", grid="#FFFFFF", gridop=".09"),
 }
 
-# ─────────────────────────────────────────────────────────── text metrics
-# Approximate advance widths (em) for a UI sans stack. Chips are padded
-# generously so cross-platform font variance never clips a label.
-_W = {" ": .27, ".": .28, ",": .28, ":": .28, ";": .28, "!": .30, "|": .26,
-      "'": .22, '"': .38, "i": .26, "j": .26, "l": .26, "I": .29, "t": .35,
-      "f": .33, "r": .38, "m": .87, "w": .75, "M": .87, "W": .93, "@": .95,
-      "-": .35, "–": .5, "·": .34, "/": .33, "(": .34, ")": .34, "+": .58,
-      "×": .58, "&": .70, "3": .58, "6": .58, "8": .58}
+def on(fill, t):
+    """Text colour that survives on `fill`. POP colours are all light."""
+    return "#000000" if fill in POP.values() else t["text"]
 
+def edge(fill, t):
+    """Outline colour. Black reads on every POP fill; panels need the ink."""
+    return "#000000" if fill in POP.values() else t["ink"]
+
+# ───────────────────────────────────────────────────────────── typography
+DISPLAY = "'Arial Black','Arial Bold',Helvetica,Arial,sans-serif"
+MEME    = "Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif"
+SANS    = "-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,Helvetica,Arial,sans-serif"
+MONO    = "ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace"
+
+# (text, px, weight, family) -> width in px, measured in Chromium against the
+# real stacks. Anything absent falls back to a deliberately wide estimate.
 MEASURED = {
-    ("Java 17+", 13, 600): 54.98,
-    ("Spring Boot", 13, 600): 74.52,
-    ("Spring Modulith", 13, 600): 100.59,
-    ("Spring Security", 13, 600): 97.79,
-    ("Laravel", 13, 600): 45.67,
-    ("NestJS", 13, 600): 45.53,
-    ("Node.js", 13, 600): 48.29,
-    ("Go / Fiber", 13, 600): 60.75,
-    ("PHP", 13, 600): 26.95,
-    ("Next.js", 13, 600): 44.23,
-    ("React", 13, 600): 36.19,
-    ("Vue 3 + Pinia", 13, 600): 82.13,
-    ("TypeScript", 13, 600): 69.13,
-    ("JavaScript", 13, 600): 67.19,
-    ("Tailwind", 13, 600): 51.86,
-    ("SvelteKit", 13, 600): 56.86,
-    ("React Native", 13, 600): 80.0,
-    ("Flutter", 13, 600): 42.11,
-    ("Dart", 13, 600): 27.5,
-    ("Kotlin", 13, 600): 36.27,
-    ("Swift", 13, 600): 32.78,
-    ("Android", 13, 600): 50.06,
-    ("PostgreSQL", 13, 600): 75.34,
-    ("MySQL", 13, 600): 45.18,
-    ("Redis", 13, 600): 34.99,
-    ("TimescaleDB", 13, 600): 82.6,
-    ("Firebase", 13, 600): 54.21,
-    ("Multi-datasource ACID", 13, 600): 143.96,
-    ("Docker", 13, 600): 44.9,
-    ("Jenkins", 13, 600): 48.82,
-    ("Nginx", 13, 600): 36.56,
-    ("GitHub Actions", 13, 600): 95.47,
-    ("Git", 13, 600): 18.31,
-    ("Grafana", 13, 600): 50.0,
-    ("Linux / VPS", 13, 600): 71.08,
-    ("MikroTik RouterOS", 13, 600): 117.9,
-    ("FreeRADIUS / AAA", 13, 600): 116.03,
-    ("PPPoE", 13, 600): 41.09,
-    ("RADIUS Accounting", 13, 600): 124.9,
-    ("CoA Disconnect", 13, 600): 100.9,
-    ("OLT & NOC", 13, 600): 70.34,
-    ("Duitku", 13, 600): 41.37,
-    ("BRI Fixed VA", 13, 600): 79.38,
-    ("Midtrans", 13, 600): 56.04,
-    ("QRIS", 13, 600): 31.23,
-    ("Double-Entry GL", 13, 600): 105.29,
-    ("Reconciliation", 13, 600): 89.06,
-    ("C++", 13, 600): 26.4,
-    ("Rust", 13, 600): 28.8,
-    ("Python", 13, 600): 44.9,
-    ("WebSocket", 13, 600): 71.54,
-    ("Express", 13, 600): 50.16,
-    ("LinkedIn", 14, 600): 62.29,
-    ("Email", 14, 600): 40.15,
-    ("Case Studies", 14, 600): 88.4,
+ ("Java 17+",13,700,"s"):56.2,("Spring Boot",13,700,"s"):76.13,("Spring Modulith",13,700,"s"):102.95,
+ ("Spring Security",13,700,"s"):100.24,("Laravel",13,700,"s"):46.81,("NestJS",13,700,"s"):46.63,
+ ("Node.js",13,700,"s"):49.4,("Go / Fiber",13,700,"s"):61.67,("PHP",13,700,"s"):27.47,
+ ("Next.js",13,700,"s"):45.51,("React",13,700,"s"):36.97,("Vue 3 + Pinia",13,700,"s"):83.6,
+ ("TypeScript",13,700,"s"):70.97,("JavaScript",13,700,"s"):69.04,("Tailwind",13,700,"s"):53.37,
+ ("SvelteKit",13,700,"s"):58.48,("React Native",13,700,"s"):81.64,("Flutter",13,700,"s"):43.44,
+ ("Dart",13,700,"s"):28.2,("Kotlin Multiplatform",13,700,"s"):128.83,("Android",13,700,"s"):51.37,
+ ("PostgreSQL",13,700,"s"):76.95,("MySQL",13,700,"s"):45.91,("Redis",13,700,"s"):35.8,
+ ("TimescaleDB",13,700,"s"):84.33,("Firebase",13,700,"s"):55.52,("Multi-datasource ACID",13,700,"s"):147.21,
+ ("Docker",13,700,"s"):45.83,("Jenkins",13,700,"s"):50.17,("Nginx",13,700,"s"):37.43,
+ ("GitHub Actions",13,700,"s"):97.58,("Git",13,700,"s"):18.75,("Grafana",13,700,"s"):51.12,
+ ("Linux / VPS",13,700,"s"):72.45,("MikroTik RouterOS",13,700,"s"):120.65,("FreeRADIUS / AAA",13,700,"s"):118.36,
+ ("PPPoE",13,700,"s"):41.85,("RADIUS Accounting",13,700,"s"):127.55,("CoA Disconnect",13,700,"s"):102.81,
+ ("OLT & NOC",13,700,"s"):70.88,("Duitku",13,700,"s"):42.49,("BRI Fixed VA",13,700,"s"):80.99,
+ ("Midtrans",13,700,"s"):57.46,("QRIS",13,700,"s"):31.87,("Double-Entry GL",13,700,"s"):107.32,
+ ("Reconciliation",13,700,"s"):91.31,("C++",13,700,"s"):26.86,("Rust",13,700,"s"):29.57,
+ ("Python",13,700,"s"):45.99,("WebSocket",13,700,"s"):72.92,("Express",13,700,"s"):51.42,
+ ("WHOAMI",22,900,"d"):104.34,("NOW",22,900,"d"):58.28,("THE ARSENAL",22,900,"d"):173.34,
+ ("WAR STORIES",22,900,"d"):170.36,("CAREER",22,900,"d"):100.22,("SHIPPED IT",22,900,"d"):139.34,
+ ("TALKED AT PEOPLE",22,900,"d"):240.22,("SAY HI",22,900,"d"):82.47,
+ ("BACKEND",12,900,"d"):65.57,("FRONTEND",12,900,"d"):73.79,("PAYMENTS",12,900,"d"):72.62,
+ ("SYSTEMS",12,900,"d"):63.47,("NETWORK",12,900,"d"):68.45,("MOBILE",12,900,"d"):52.0,
+ ("DATA",12,900,"d"):34.51,("INFRA",12,900,"d"):41.34,
+ ("BONSKY",92,900,"d"):439.47,("SENIOR FULL STACK ENGINEER",17,900,"d"):300.75,
+ ("@ SBLNET",17,900,"d"):93.81,
+ ("LinkedIn",15,900,"d"):70.35,("Email",15,900,"d"):45.83,("SBLNET",15,900,"d"):66.67,
 }
+SAFETY = 1.05          # cross-platform headroom; only ever adds padding
 
-# Widths measured in-browser against the SANS stack (Chromium/macOS -> SF Pro).
-# Other platforms resolve to Segoe UI / Roboto, both narrower, so SAFETY only
-# ever buys extra right padding -- it never clips a label.
-SAFETY = 1.05
-
-
-def tw(s, size, weight=600, tracking=0.0):
-    """Rendered width of `s` in px: measured where known, estimated otherwise."""
-    tr = tracking * max(len(s) - 1, 0)
-    hit = MEASURED.get((s, size, weight))
+def tw(text, size, weight=700, fam="s", tracking=0.0):
+    tr = tracking * max(len(text) - 1, 0)
+    hit = MEASURED.get((text, size, weight, fam))
     if hit is not None:
         return hit * SAFETY + tr
-    total = 0.0
-    for ch in s:
-        if ch in _W:      total += _W[ch]
-        elif ch.isdigit():total += .58
-        elif ch.isupper():total += .66
-        else:             total += .545
-    total *= size * (1.02 if weight >= 700 else 1.01 if weight >= 600 else 1.0)
-    return total * 1.08 * SAFETY + tr      # unmeasured: lean wide, never clip
+    if fam == "m":                                   # monospace is computable
+        return len(text) * size * 0.605 + tr
+    per = 0.78 if fam == "d" else 0.52 if fam == "e" else 0.58
+    return len(text) * size * per * SAFETY + tr
 
-def twm(s, size, tracking=0.0):
-    """Monospace advance. Every mono in the stack sits at ~0.60em."""
-    return len(s) * size * 0.605 + tracking * max(len(s) - 1, 0)
+FAM = {"s": SANS, "d": DISPLAY, "m": MONO, "e": MEME}
 
-SANS = "-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Roboto,'Helvetica Neue',Arial,sans-serif"
-MONO = "ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,'Liberation Mono',monospace"
+def esc(s):
+    return html.escape(s, quote=False)
 
-def esc(s): return html.escape(s, quote=False)
+def text(x, y, s, size, fill, fam="s", weight=700, anchor="start", tracking=0.0, extra=""):
+    ls = f' letter-spacing="{tracking}"' if tracking else ""
+    an = f' text-anchor="{anchor}"' if anchor != "start" else ""
+    return (f'<text x="{x:.1f}" y="{y:.1f}" font-family="{FAM[fam]}" font-size="{size}" '
+            f'font-weight="{weight}" fill="{fill}"{an}{ls}{extra}>{esc(s)}</text>')
 
-# ─────────────────────────────────────────────────────────── icon symbols
+# ─────────────────────────────────────────────────── the brutalist primitive
+def block(x, y, w, h, fill, t, shadow=7, bw=3, r=0):
+    """A hard-shadowed, thick-outlined rectangle. The whole language in one call."""
+    rr = f' rx="{r}"' if r else ""
+    return (f'<rect x="{x+shadow:.1f}" y="{y+shadow:.1f}" width="{w:.1f}" height="{h:.1f}"{rr} fill="{t["ink"]}"/>'
+            f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}"{rr} fill="{fill}" '
+            f'stroke="{edge(fill, t)}" stroke-width="{bw}"/>')
+
+# ───────────────────────────────────────────────────────── icon symbols
 MONO_ICONS = {"nextjs", "rust", "express", "socketio", "linkedin"}
 ICON_FILES = {
-    "java": "java-original", "spring": "spring-original", "laravel": "laravel-original",
-    "php": "php-original", "node": "nodejs-original", "nest": "nestjs-original",
-    "go": "go-original", "rust": "mono-rust", "nextjs": "mono-nextdotjs",
-    "react": "react-original", "vue": "vuejs-original", "ts": "typescript-original",
-    "js": "javascript-original", "tailwind": "tailwindcss-original",
-    "svelte": "svelte-original", "flutter": "flutter-original", "dart": "dart-original",
-    "kotlin": "kotlin-original", "swift": "swift-original", "android": "android-original",
-    "postgres": "postgresql-original", "mysql": "mysql-original", "redis": "redis-original",
-    "firebase": "firebase-plain", "docker": "docker-original", "jenkins": "jenkins-original",
-    "nginx": "nginx-original", "gha": "githubactions-original", "git": "git-original",
-    "python": "python-original", "cpp": "cplusplus-original", "grafana": "grafana-original",
-    "express": "mono-express", "socketio": "mono-socketdotio", "linkedin": "mono-linkedin",
+    "java":"java-original","spring":"spring-original","laravel":"laravel-original","php":"php-original",
+    "node":"nodejs-original","nest":"nestjs-original","go":"go-original","rust":"mono-rust",
+    "nextjs":"mono-nextdotjs","react":"react-original","vue":"vuejs-original","ts":"typescript-original",
+    "js":"javascript-original","tailwind":"tailwindcss-original","svelte":"svelte-original",
+    "flutter":"flutter-original","dart":"dart-original","kotlin":"kotlin-original","android":"android-original",
+    "postgres":"postgresql-original","mysql":"mysql-original","redis":"redis-original","firebase":"firebase-plain",
+    "docker":"docker-original","jenkins":"jenkins-original","nginx":"nginx-original","gha":"githubactions-original",
+    "git":"git-original","python":"python-original","cpp":"cplusplus-original","grafana":"grafana-original",
+    "express":"mono-express","socketio":"mono-socketdotio","linkedin":"mono-linkedin",
 }
-
 _ID = re.compile(r'id="([^"]+)"')
 _FILL = re.compile(r'\sfill="[^"]*"')
 _STYLE_FILL = re.compile(r'fill:\s*[^;"]+;?')
 
-def load_symbol(key, theme):
-    """Read a brand icon, namespace its internal ids, return a <symbol>."""
+def symbol_inner(key, mono_fill=None):
     with open(os.path.join(ICONS, ICON_FILES[key] + ".svg"), encoding="utf-8") as fh:
         raw = fh.read()
     vb = re.search(r'viewBox="([^"]+)"', raw).group(1)
     inner = raw[raw.index(">", raw.index("<svg")) + 1: raw.rindex("</svg>")]
     inner = re.sub(r"<title>.*?</title>", "", inner, flags=re.S)
-
-    for old in set(_ID.findall(inner)):                    # avoid cross-icon id clashes
+    for old in set(_ID.findall(inner)):              # namespace ids across icons
         new = f"{key}_{old}"
-        inner = inner.replace(f'id="{old}"', f'id="{new}"')
-        inner = inner.replace(f"url(#{old})", f"url(#{new})")
-        inner = inner.replace(f'href="#{old}"', f'href="#{new}"')
-
+        inner = (inner.replace(f'id="{old}"', f'id="{new}"')
+                      .replace(f"url(#{old})", f"url(#{new})")
+                      .replace(f'href="#{old}"', f'href="#{new}"'))
     if key in MONO_ICONS:
-        inner = _FILL.sub("", inner)
-        inner = _STYLE_FILL.sub("", inner)
-        inner = f'<g fill="{theme["mono"]}">{inner}</g>'
+        inner = _STYLE_FILL.sub("", _FILL.sub("", inner))
+        inner = f'<g fill="{mono_fill}">{inner}</g>'
+    return vb, inner
+
+def sym(key, t):
+    vb, inner = symbol_inner(key, "#000000")         # icons always sit on light chips
     return f'<symbol id="ic-{key}" viewBox="{vb}">{inner}</symbol>'
 
 def use(key, x, y, size):
-    return (f'<use href="#ic-{key}" xlink:href="#ic-{key}" '
-            f'x="{x:.1f}" y="{y:.1f}" width="{size}" height="{size}"/>')
+    return (f'<use href="#ic-{key}" xlink:href="#ic-{key}" x="{x:.1f}" y="{y:.1f}" '
+            f'width="{size}" height="{size}"/>')
 
-# ─────────────────────────────────────────────────────────── hero
-def build_hero(name, t):
-    W, H = 1200, 330
-    a, a2 = t["accent"], t["accent2"]
+# ─────────────────────────────────────────────────────────────────── hero
+TAGLINE = "// interested in new things. addicted to code. that's all."
 
-    # ISP topology: core → distribution → access → CPE. On-brand for an
-    # engineer who runs FreeRADIUS/MikroTik in production.
-    core = (700, 168)
-    dist = [(858, 92), (858, 168), (858, 244)]
-    acc_y = [58, 102, 146, 190, 234, 278]
-    access = [(1016, y) for y in acc_y]
-    cpe = [(1174, y) for y in acc_y]
-    d2a = {0: (0, 1), 1: (2, 3), 2: (4, 5)}
 
-    css = [
-        "@keyframes brth{0%,100%{opacity:.45}50%{opacity:1}}",
-        "@keyframes ring{0%{r:9;opacity:.55}100%{r:34;opacity:0}}",
-        "@keyframes cur{0%,45%{opacity:1}50%,100%{opacity:0}}",
-        ".nd{animation:brth 3.2s ease-in-out infinite}",
-        ".rg{animation:ring 3.4s ease-out infinite}",
-        ".cur{animation:cur 1.05s step-end infinite}",
-    ]
-    body, defs = [], []
+def build_hero(t):
+    W, H, SH = 1200, 404, 9
+    CX, CY, CW, CH = 5, 5, 1180, 386
+    a = []
+    css = ["@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}",
+           "@keyframes nudge{0%,100%{transform:rotate(-11deg)}50%{transform:rotate(-8deg)}}",
+           ".cur{animation:blink 1s step-end infinite}",
+           ".stamp{transform-box:fill-box;transform-origin:center;animation:nudge 5s ease-in-out infinite}",
+           "@media(prefers-reduced-motion:reduce){*{animation:none!important}}"]
+    defs = [f'<pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse">'
+            f'<path d="M26 0H0V26" fill="none" stroke="{t["grid"]}" stroke-opacity="{t["gridop"]}" stroke-width="1"/>'
+            f'</pattern>']
 
-    defs.append(f'<radialGradient id="hglow"><stop offset="0" stop-color="{a}" '
-                f'stop-opacity="{t["glow"]}"/><stop offset=".55" stop-color="{a}" stop-opacity="{t["glow"]*.35:.3f}"/>'
-                f'<stop offset="1" stop-color="{a}" stop-opacity="0"/></radialGradient>')
-    defs.append(f'<pattern id="hgrid" width="22" height="22" patternUnits="userSpaceOnUse">'
-                f'<circle cx="1.2" cy="1.2" r="1.2" fill="{t["muted"]}" opacity="{t["grid"]}"/></pattern>')
-    # feather the texture into the page instead of ending on a hard rectangle
-    defs.append('<radialGradient id="hfade" cx=".5" cy=".5" r=".5">'
-                '<stop offset="0" stop-color="#fff" stop-opacity="1"/>'
-                '<stop offset=".62" stop-color="#fff" stop-opacity=".85"/>'
-                '<stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>')
-    defs.append('<mask id="hmask"><rect x="590" y="0" width="610" height="330" fill="url(#hfade)"/></mask>')
+    # card + graph-paper texture
+    a.append(block(CX, CY, CW, CH, t["panel"], t, shadow=SH, bw=4))
+    a.append(f'<rect x="{CX+2}" y="{CY+46}" width="{CW-4}" height="{CH-48}" fill="url(#grid)"/>')
 
-    body.append('<g mask="url(#hmask)">')
-    body.append('<rect x="590" y="0" width="610" height="330" fill="url(#hgrid)"/>')
-    body.append(f'<ellipse cx="925" cy="{core[1]}" rx="272" ry="168" fill="url(#hglow)"/>')
-    body.append('</g>')
+    # terminal chrome
+    a.append(f'<rect x="{CX+2}" y="{CY+2}" width="{CW-4}" height="44" fill="{t["ink"]}"/>')
+    for i, c in enumerate([POP["pink"], POP["yellow"], POP["lime"]]):
+        a.append(f'<circle cx="{CX+30+i*26}" cy="{CY+24}" r="7.5" fill="{c}"/>')
+    a.append(text(CX+118, CY+29, "bonsky@sblnet: ~/who-dis", 13, t["paper"], "m", 400))
+    a.append(text(CX+CW-24, CY+29, "STATUS: SHIPPING TO PROD", 12, POP["lime"], "m", 700, anchor="end"))
 
-    # edges
-    for i, d in enumerate(dist):
-        body.append(f'<line x1="{core[0]}" y1="{core[1]}" x2="{d[0]}" y2="{d[1]}" '
-                    f'stroke="{a}" stroke-opacity=".38" stroke-width="1.4"/>')
-        for j in d2a[i]:
-            p = access[j]
-            body.append(f'<line x1="{d[0]}" y1="{d[1]}" x2="{p[0]}" y2="{p[1]}" '
-                        f'stroke="{a2}" stroke-opacity=".32" stroke-width="1.1"/>')
-    for p, c in zip(access, cpe):
-        body.append(f'<line x1="{p[0]}" y1="{p[1]}" x2="{c[0]}" y2="{c[1]}" '
-                    f'stroke="{t["muted"]}" stroke-opacity=".55" stroke-width="1"/>')
+    # BONSKY — a yellow highlight block, because subtlety is not the assignment
+    bw_ = tw("BONSKY", 92, 900, "d")
+    a.append(text(CX+34, CY+96, "MUHAMMAD ILHAM RAFIANNANDHA", 13, t["sub"], "m", 700, tracking=1.6))
+    a.append(block(CX+30, CY+112, bw_+46, 96, POP["yellow"], t, shadow=8, bw=4))
+    a.append(text(CX+53, CY+186, "BONSKY", 92, "#000000", "d", 900))
 
-    # travelling packets — CSS transforms so prefers-reduced-motion can stop them
-    pk = []
-    routes = [(core, dist[0]), (core, dist[1]), (core, dist[2])]
-    routes += [(dist[i], access[j]) for i, js in d2a.items() for j in js]
-    for i, (s, e) in enumerate(routes):
-        css.append(f"@keyframes pk{i}{{0%{{transform:translate(0,0);opacity:0}}"
-                   f"12%{{opacity:1}}88%{{opacity:1}}"
-                   f"100%{{transform:translate({e[0]-s[0]}px,{e[1]-s[1]}px);opacity:0}}}}")
-        css.append(f".pk{i}{{animation:pk{i} {2.6 + (i % 4) * .45:.2f}s linear infinite;"
-                   f"animation-delay:{i * .38:.2f}s}}")
-        pk.append(f'<circle class="pk{i}" cx="{s[0]}" cy="{s[1]}" r="2.6" '
-                  f'fill="{a if i < 3 else a2}"/>')
-    body += pk
+    # role + employer
+    rw = tw("SENIOR FULL STACK ENGINEER", 17, 900, "d") + 38
+    a.append(block(CX+30, CY+232, rw, 42, t["ink"], t, shadow=6, bw=3))
+    a.append(text(CX+49, CY+260, "SENIOR FULL STACK ENGINEER", 17, t["paper"], "d", 900))
+    aw = tw("@ SBLNET", 17, 900, "d") + 38
+    a.append(block(CX+42+rw, CY+232, aw, 42, POP["cyan"], t, shadow=6, bw=3))
+    a.append(text(CX+61+rw, CY+260, "@ SBLNET", 17, "#000000", "d", 900))
 
-    # nodes
-    body.append(f'<circle class="rg" cx="{core[0]}" cy="{core[1]}" r="9" fill="none" '
-                f'stroke="{a}" stroke-width="1.5"/>')
-    body.append(f'<circle cx="{core[0]}" cy="{core[1]}" r="16" fill="{a}" opacity=".12"/>')
-    body.append(f'<circle cx="{core[0]}" cy="{core[1]}" r="7.5" fill="{a}"/>')
-    for i, d in enumerate(dist):
-        body.append(f'<circle class="nd" style="animation-delay:{i*.5:.1f}s" cx="{d[0]}" cy="{d[1]}" '
-                    f'r="5" fill="{a}"/>')
-    for i, p in enumerate(access):
-        body.append(f'<circle class="nd" style="animation-delay:{i*.31+.2:.2f}s" cx="{p[0]}" cy="{p[1]}" '
-                    f'r="3.6" fill="{a2}"/>')
-    for c in cpe:
-        body.append(f'<rect x="{c[0]-3.1}" y="{c[1]-3.1}" width="6.2" height="6.2" rx="1.5" '
-                    f'fill="{t["surface"]}" stroke="{t["muted"]}" stroke-opacity=".9"/>')
+    # tagline with a blinking block cursor
+    a.append(f'<text x="{CX+34}" y="{CY+318}" font-family="{MONO}" font-size="13.5" fill="{t["text"]}">'
+             f'{esc(TAGLINE)}'
+             f'<tspan class="cur" fill="{POP["pink"]}">█</tspan></text>')
+    a.append(text(CX+34, CY+356, "java · spring modulith · next.js · react native · kotlin multiplatform · mikrotik",
+                  12, t["sub"], "m", 400))
 
-    tier = [("CORE", core[0], 300), ("DIST", dist[0][0], 300), ("ACCESS", access[0][0], 300), ("CPE", cpe[0][0], 300)]
-    for label, x, y in tier:
-        body.append(f'<text x="{x}" y="{y}" text-anchor="middle" font-family="{MONO}" font-size="9.5" '
-                    f'letter-spacing="1.6" fill="{t["faint"]}">{label}</text>')
+    # ── the stamp: peak "trust me bro" energy
+    scx, scy, R = 952, 200, 110
+    defs.append(f'<path id="arc" fill="none" d="M 0,-{R-19} A {R-19},{R-19} 0 1,1 0,{R-19} A {R-19},{R-19} 0 1,1 0,-{R-19}"/>')
+    s = [f'<circle r="{R}" fill="{POP["pink"]}" stroke="#000" stroke-width="4"/>',
+         f'<circle r="{R-30}" fill="none" stroke="#000" stroke-width="2.5"/>',
+         f'<text font-family="{MEME}" font-size="17" fill="#000" letter-spacing="2.4">'
+         f'<textPath href="#arc" xlink:href="#arc" startOffset="0">'
+         f'{esc("WORKS ON MY MACHINE ★ CERTIFIED ★ ")}</textPath></text>',
+         f'<text y="-6" text-anchor="middle" font-family="{MEME}" font-size="40" fill="#000">SHIP</text>',
+         f'<text y="32" text-anchor="middle" font-family="{MEME}" font-size="40" fill="#000">IT</text>']
+    a.append(f'<g transform="translate({scx},{scy})"><g class="stamp">{"".join(s)}</g></g>')
 
-    # ── left column
-    pill = "OPEN TO WORK  ·  JAKARTA, ID  ·  UTC+7"
-    pw = 34 + twm(pill, 11, 1.5) + 16
-    body.append(f'<rect x="2" y="46" width="{pw:.0f}" height="28" rx="14" fill="{a}" fill-opacity=".10" '
-                f'stroke="{a}" stroke-opacity=".38"/>')
-    body.append(f'<circle class="nd" cx="22" cy="60" r="3.6" fill="{a}"/>')
-    body.append(f'<text x="36" y="64.5" font-family="{MONO}" font-size="11" font-weight="500" '
-                f'letter-spacing="1.5" fill="{a}">{pill}</text>')
+    return wrap(W, H, defs, a, css, "Bonsky — Senior Full Stack Engineer")
 
-    body.append(f'<text x="2" y="150" font-family="{SANS}" font-size="56" font-weight="800" '
-                f'letter-spacing="-1.4" fill="{t["strong"]}">Ilham Rafiannandha</text>')
+# ────────────────────────────────────────────────────────────────── stats
+STATS = [("6+", "YEARS SHIPPING", "yellow", -1.3),
+         ("11", "COMPANIES & CLIENTS", "cyan", 1.1),
+         ("25+", "PRODUCTS SHIPPED", "lime", -1.0),
+         ("0", "KNOWN BUGS *", "pink", 1.4)]
 
-    body.append(f'<text x="2" y="185" font-family="{SANS}" font-size="18.5" font-weight="600" '
-                f'fill="{t["text"]}">Senior Full Stack Engineer'
-                f'<tspan fill="{t["faint"]}">  ·  </tspan>'
-                f'<tspan fill="{t["muted"]}" font-weight="500">ISP platforms, fintech &amp; mobile</tspan></text>')
+def build_stats(t):
+    W, H, SH = 1200, 176, 7
+    n = len(STATS); gap = 18
+    bw_ = (W - 12 - gap * (n - 1) - SH) / n
+    a = []
+    for i, (num, label, col, rot) in enumerate(STATS):
+        x = 6 + i * (bw_ + gap)
+        g = [block(0, 0, bw_, 132, POP[col], t, shadow=SH, bw=3.5),
+             text(bw_/2, 76, num, 54, "#000000", "d", 900, anchor="middle"),
+             text(bw_/2, 106, label, 11, "#000000", "d", 900, anchor="middle", tracking=1.1)]
+        a.append(f'<g transform="translate({x:.1f},20) rotate({rot} {bw_/2:.1f} 66)">{"".join(g)}</g>')
+    return wrap(W, H, [], a, [], "By the numbers")
 
-    tag = "// Interested in new things. Addicted to code. That's all."
-    body.append(f'<text x="2" y="216" font-family="{MONO}" font-size="13.5" fill="{t["muted"]}">{esc(tag)}'
-                f'<tspan class="cur" fill="{a}">\u2588</tspan></text>')
-
-    body.append(f'<line x1="2" y1="250" x2="588" y2="250" stroke="{t["border"]}"/>')
-    strip = "java · spring modulith · next.js · react native · postgresql · mikrotik · freeradius"
-    body.append(f'<text x="2" y="278" font-family="{MONO}" font-size="12" letter-spacing=".3" '
-                f'fill="{t["faint"]}">{esc(strip)}</text>')
-
-    return wrap(W, H, defs, body, css, name)
-
-# ─────────────────────────────────────────────────────────── stack
+# ────────────────────────────────────────────────────────────────── stack
+STACK = [
+ ("BACKEND","yellow",[("java","Java 17+"),("spring","Spring Boot"),("spring","Spring Modulith"),
+   ("spring","Spring Security"),("laravel","Laravel"),("nest","NestJS"),("node","Node.js"),
+   ("go","Go / Fiber"),("php","PHP")]),
+ ("FRONTEND","cyan",[("nextjs","Next.js"),("react","React"),("vue","Vue 3 + Pinia"),("ts","TypeScript"),
+   ("js","JavaScript"),("tailwind","Tailwind"),("svelte","SvelteKit")]),
+ ("MOBILE","lime",[("react","React Native"),("flutter","Flutter"),("dart","Dart"),
+   ("kotlin","Kotlin Multiplatform"),("android","Android")]),
+ ("DATA","pink",[("postgres","PostgreSQL"),("mysql","MySQL"),("redis","Redis"),(None,"TimescaleDB"),
+   ("firebase","Firebase"),(None,"Multi-datasource ACID")]),
+ ("INFRA","orange",[("docker","Docker"),("jenkins","Jenkins"),("nginx","Nginx"),("gha","GitHub Actions"),
+   ("git","Git"),("grafana","Grafana"),(None,"Linux / VPS")]),
+ ("NETWORK","purple",[(None,"MikroTik RouterOS"),(None,"FreeRADIUS / AAA"),(None,"PPPoE"),
+   (None,"RADIUS Accounting"),(None,"CoA Disconnect"),(None,"OLT & NOC")]),
+ ("PAYMENTS","yellow",[(None,"Duitku"),(None,"BRI Fixed VA"),(None,"Midtrans"),(None,"QRIS"),
+   (None,"Double-Entry GL"),(None,"Reconciliation")]),
+ ("SYSTEMS","cyan",[("cpp","C++"),("rust","Rust"),("python","Python"),("socketio","WebSocket"),
+   ("express","Express")]),
+]
 
 def balance(items, avail, gap, width_of):
-    """Pack `items` into the fewest lines, then even them out.
-
-    Greedy packing leaves orphans (one lone chip on its own row); once the
-    line count is known we re-pack against an average-width target so rows
-    come out visually even.
-    """
+    """Fewest lines, then evened out — a lone orphan chip reads as a bug."""
     ws = [width_of(i) for i in items]
-
     def pack(limit):
         rows, cur, cw = [], [], 0.0
         for it, w in zip(items, ws):
             nw = w if not cur else cw + gap + w
-            if cur and nw > limit:
-                rows.append(cur); cur, cw = [it], w
-            else:
-                cur.append(it); cw = nw
+            if cur and nw > limit: rows.append(cur); cur, cw = [it], w
+            else:                  cur.append(it); cw = nw
         if cur: rows.append(cur)
         return rows
-
     n = len(pack(avail))
-    if n < 2:
-        return pack(avail)
-    lo, hi = max(ws), avail          # tightest limit still yielding n lines
+    if n < 2: return pack(avail)
+    lo, hi = max(ws), avail
     for _ in range(40):
         mid = (lo + hi) / 2
         if len(pack(mid)) <= n: hi = mid
         else:                   lo = mid
     return pack(hi)
 
+def build_stack(t):
+    W, LX, CX, MAXX = 1200, 6, 178, 1188
+    RH, GAP, RGAP, SH = 38, 12, 20, 5
+    ICON, LEAD_I, LEAD_D, RPAD = 18, 42, 26, 16
+    used, y, a = set(), 6, []
 
-STACK = [
-    ("BACKEND", [("java", "Java 17+"), ("spring", "Spring Boot"), ("spring", "Spring Modulith"),
-                 ("spring", "Spring Security"), ("laravel", "Laravel"), ("nest", "NestJS"),
-                 ("node", "Node.js"), ("go", "Go / Fiber"), ("php", "PHP")]),
-    ("FRONTEND", [("nextjs", "Next.js"), ("react", "React"), ("vue", "Vue 3 + Pinia"),
-                  ("ts", "TypeScript"), ("js", "JavaScript"), ("tailwind", "Tailwind"),
-                  ("svelte", "SvelteKit")]),
-    ("MOBILE", [("react", "React Native"), ("flutter", "Flutter"), ("dart", "Dart"),
-                ("kotlin", "Kotlin"), ("swift", "Swift"), ("android", "Android")]),
-    ("DATA", [("postgres", "PostgreSQL"), ("mysql", "MySQL"), ("redis", "Redis"),
-              (None, "TimescaleDB"), ("firebase", "Firebase"), (None, "Multi-datasource ACID")]),
-    ("INFRA", [("docker", "Docker"), ("jenkins", "Jenkins"), ("nginx", "Nginx"),
-               ("gha", "GitHub Actions"), ("git", "Git"), ("grafana", "Grafana"), (None, "Linux / VPS")]),
-    ("NETWORK", [(None, "MikroTik RouterOS"), (None, "FreeRADIUS / AAA"), (None, "PPPoE"),
-                 (None, "RADIUS Accounting"), (None, "CoA Disconnect"), (None, "OLT & NOC")]),
-    ("PAYMENTS", [(None, "Duitku"), (None, "BRI Fixed VA"), (None, "Midtrans"), (None, "QRIS"),
-                  (None, "Double-Entry GL"), (None, "Reconciliation")]),
-    ("SYSTEMS", [("cpp", "C++"), ("rust", "Rust"), ("python", "Python"),
-                 ("socketio", "WebSocket"), ("express", "Express")]),
-]
+    for label, col, items in STACK:
+        def cwidth(it):
+            return (LEAD_I if it[0] else LEAD_D) + tw(it[1], 13, 700, "s") + RPAD
+        lw = tw(label, 12, 900, "d", 1.3) + 26
+        a.append(block(LX, y, lw, RH, POP[col], t, shadow=SH, bw=3))
+        a.append(text(LX + 13, y + RH/2 + 4.5, label, 12, "#000000", "d", 900, tracking=1.3))
 
-def build_stack(name, t):
-    W = 1200
-    L_X, C_X, MAXX = 2, 104, 1198         # label column, chip column, wrap edge — all
-    RH, GAP, RGAP, PAD = 34, 9, 13, 22    # flush with the README text column
-    FS = 13
-    ICON_LEAD, DOT_LEAD, RPAD = 39, 24, 14
-    used, y = set(), PAD
-    body = []
-
-    for label, items in STACK:
-        def chip_w(it):
-            return (ICON_LEAD if it[0] else DOT_LEAD) + tw(it[1], FS, 600) + RPAD
-        rows = []
-        for line in balance(items, MAXX - C_X, GAP, chip_w):
-            x, placed = C_X, []
-            for key, text in line:
-                w = chip_w((key, text))
-                placed.append((key, text, x, w)); x += w + GAP
-            rows.append(placed)
-
-        body.append(f'<text x="{L_X}" y="{y + RH/2 + 4:.0f}" font-family="{MONO}" '
-                    f'font-size="11" font-weight="600" letter-spacing="1.7" fill="{t["faint"]}">{label}</text>')
-        for row in rows:
-            for key, text, x, w in row:
-                body.append(f'<rect x="{x:.0f}" y="{y}" width="{w:.0f}" height="{RH}" rx="9" '
-                            f'fill="{t["surface"]}" stroke="{t["border"]}"/>')
+        for line in balance(items, MAXX - CX - SH, GAP, cwidth):
+            x = CX
+            for key, lbl in line:
+                w = cwidth((key, lbl))
+                a.append(block(x, y, w, RH, t["panel"], t, shadow=SH, bw=2.5))
                 if key:
                     used.add(key)
-                    body.append(use(key, x + 13, y + 8, 18))
-                    tx = x + ICON_LEAD
+                    a.append(f'<rect x="{x+9}" y="{y+(RH-ICON-6)/2}" width="{ICON+6}" height="{ICON+6}" fill="#FFFFFF"/>')
+                    a.append(use(key, x + 12, y + (RH - ICON) / 2, ICON))
+                    tx = x + LEAD_I
                 else:
-                    body.append(f'<circle cx="{x+16:.0f}" cy="{y + RH/2:.0f}" r="3.4" fill="{t["accent"]}" opacity=".85"/>')
-                    tx = x + DOT_LEAD
-                body.append(f'<text x="{tx:.0f}" y="{y + RH/2 + 4.5:.0f}" font-family="{SANS}" font-size="{FS}" '
-                            f'font-weight="600" fill="{t["text"]}">{esc(text)}</text>')
+                    a.append(f'<rect x="{x+13}" y="{y+RH/2-5}" width="10" height="10" fill="{POP[col]}" '
+                             f'stroke="#000" stroke-width="2"/>')
+                    tx = x + LEAD_D
+                a.append(text(tx, y + RH/2 + 4.5, lbl, 13, t["text"], "s", 700))
+                x += w + GAP
             y += RH + GAP
         y += RGAP - GAP
+    return wrap(W, y - RGAP + GAP + SH + 6, [sym(k, t) for k in sorted(used)], a, [], "Stack")
 
-    H = y - RGAP + GAP + PAD
-    defs = [load_symbol(k, t) for k in sorted(used)]
-    return wrap(W, H, defs, body, [], name)
+# ─────────────────────────────────────────────────────── section headers
+SECTIONS = [("WHOAMI","yellow"), ("NOW","cyan"), ("THE ARSENAL","lime"), ("WAR STORIES","pink"),
+            ("CAREER","orange"), ("SHIPPED IT","purple"), ("TALKED AT PEOPLE","yellow"), ("SAY HI","cyan")]
 
-# ─────────────────────────────────────────────────────────── stats
-STATS = [("6+", "YEARS IN PRODUCTION"), ("11", "COMPANIES & CLIENTS"),
-         ("25+", "PRODUCTS SHIPPED"), ("87", "REPOSITORIES")]
+def build_section(title, col, t):
+    H, SH, PADX = 50, 6, 22
+    w = tw(title, 22, 900, "d", 0.8) + PADX * 2 + 30
+    a = [block(2, 2, w, H, POP[col], t, shadow=SH, bw=3.5),
+         f'<rect x="{2+PADX-4}" y="{2+H/2-7}" width="14" height="14" fill="#000000"/>',
+         text(2 + PADX + 20, 2 + H/2 + 8, title, 22, "#000000", "d", 900, tracking=0.8)]
+    return wrap(round(w + SH + 4), H + SH + 4, [], a, [], title)
 
-def build_stats(name, t):
-    W, H = 1200, 148
-    X0, X1, Y0, PH = 1, 1199, 14, 120
-    body = [f'<rect x="{X0}" y="{Y0}" width="{X1-X0}" height="{PH}" rx="16" '
-            f'fill="{t["surface"]}" stroke="{t["border"]}"/>']
-    colw = (X1 - X0) / len(STATS)
-    accents = [t["accent"], t["accent2"], t["accent3"], t["accent"]]
-    for i, (num, label) in enumerate(STATS):
-        cx = X0 + colw * i + colw / 2
-        if i:
-            body.append(f'<line x1="{X0+colw*i:.0f}" y1="{Y0+26}" x2="{X0+colw*i:.0f}" y2="{Y0+PH-26}" '
-                        f'stroke="{t["border"]}"/>')
-        body.append(f'<text x="{cx:.0f}" y="{Y0+66}" text-anchor="middle" font-family="{SANS}" '
-                    f'font-size="42" font-weight="800" letter-spacing="-1" fill="{accents[i]}">{num}</text>')
-        body.append(f'<text x="{cx:.0f}" y="{Y0+94}" text-anchor="middle" font-family="{MONO}" '
-                    f'font-size="10.5" font-weight="600" letter-spacing="1.8" '
-                    f'fill="{t["muted"]}">{esc(label)}</text>')
-    return wrap(W, H, [], body, [], name)
+# ────────────────────────────────────────────────────────────────  badges
+def g_envelope():
+    return ('<g fill="none" stroke="#000" stroke-width="2.2" stroke-linejoin="round">'
+            '<rect x="1" y="3" width="18" height="14"/><path d="M1.8 4.2 10 11.2 18.2 4.2"/></g>')
 
+def g_signal():
+    return ('<g fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round">'
+            '<path d="M3.5 13.5a9 9 0 0 1 13 0"/><path d="M6.8 16.6a4.6 4.6 0 0 1 6.4 0"/>'
+            '<circle cx="10" cy="19" r="1.4" fill="#000"/><path d="M.6 10.2a13.4 13.4 0 0 1 18.8 0"/></g>')
 
-# ─────────────────────────────────────────────────────────── link badges
-def _envelope(a):
-    return (f'<g fill="none" stroke="{a}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">'
-            f'<rect x="1" y="2.7" width="15" height="11.6" rx="2.2"/>'
-            f'<path d="M1.7 4.4 8.5 9.5 15.3 4.4"/></g>')
+BADGES = [("linkedin","LinkedIn","cyan",None), ("email","Email","yellow",g_envelope),
+          ("sblnet","SBLNET","pink",g_signal)]
 
-def _layers(a):
-    return (f'<g fill="none" stroke="{a}" stroke-width="1.5" stroke-linejoin="round">'
-            f'<path d="M8.5 1.3 15.7 5.1 8.5 8.9 1.3 5.1Z"/>'
-            f'<path d="M1.3 8.6 8.5 12.4 15.7 8.6"/>'
-            f'<path d="M1.3 11.9 8.5 15.7 15.7 11.9"/></g>')
-
-BADGES = [("linkedin", "LinkedIn", None), ("email", "Email", _envelope),
-          ("casestudies", "Case Studies", _layers)]
-
-def build_badge(slug, label, glyph, t):
-    H, FS, PAD, ICON = 40, 14, 15, 17
-    w = PAD + ICON + 10 + tw(label, FS, 600) + 16
-    body = [f'<rect x=".75" y=".75" width="{w-1.5:.1f}" height="{H-1.5}" rx="10.25" '
-            f'fill="{t["surface"]}" stroke="{t["border"]}" stroke-width="1.5"/>']
-    iy = (H - ICON) / 2
+def build_badge(slug, label, col, glyph, t):
+    H, SH, PADX, ICON = 46, 6, 17, 20
+    w = PADX + ICON + 11 + tw(label, 15, 900, "d") + PADX
+    a = [block(2, 2, w, H, POP[col], t, shadow=SH, bw=3)]
+    iy = 2 + (H - ICON) / 2
     if glyph:
-        body.append(f'<g transform="translate({PAD},{iy:.1f})">{glyph(t["accent"])}</g>')
+        a.append(f'<g transform="translate({2+PADX},{iy:.1f})">{glyph()}</g>')
     else:
-        body.append(f'<g transform="translate({PAD},{iy:.1f}) scale({ICON/24:.4f})">'
-                    f'<g fill="{t["accent"]}">{_symbol_inner(slug, t)}</g></g>')
-    body.append(f'<text x="{PAD+ICON+10}" y="{H/2+5:.0f}" font-family="{SANS}" font-size="{FS}" '
-                f'font-weight="600" fill="{t["text"]}">{esc(label)}</text>')
-    return wrap(round(w), H, [], body, [], label)
+        _, inner = symbol_inner(slug, "#000000")
+        a.append(f'<g transform="translate({2+PADX},{iy:.1f}) scale({ICON/24:.4f})">{inner}</g>')
+    a.append(text(2 + PADX + ICON + 11, 2 + H/2 + 6, label, 15, "#000000", "d", 900))
+    return wrap(round(w + SH + 4), H + SH + 4, [], a, [], label)
 
-def _symbol_inner(key, t):
-    sym = load_symbol(key, t)
-    return sym[sym.index(">") + 1:-len("</symbol>")]
-
-# ─────────────────────────────────────────────────────────── shell
+# ─────────────────────────────────────────────────────────────────── shell
 def wrap(w, h, defs, body, css, title):
-    style = ""
-    if css:
-        rules = "".join(css) + "@media(prefers-reduced-motion:reduce){*{animation:none!important}}"
-        style = f"<style>{rules}</style>"
+    style = f"<style>{''.join(css)}</style>" if css else ""
     d = f"<defs>{''.join(defs)}</defs>" if defs else ""
     return (f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
-            f'viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" aria-label="{title}" '
+            f'viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" aria-label="{esc(title)}" '
             f'fill="none">{style}{d}{"".join(body)}</svg>')
 
-# ─────────────────────────────────────────────────────────── main
+def emit(name, svg):
+    # Parse before writing: a stray quote in a font stack silently produces a
+    # file that every browser refuses to render.
+    import xml.etree.ElementTree as ET
+    try:
+        ET.fromstring(svg)
+    except ET.ParseError as e:
+        raise SystemExit(f"malformed SVG in {name}: {e}")
+    p = os.path.join(OUT, name)
+    with open(p, "w", encoding="utf-8") as fh:
+        fh.write(svg)
+    return os.path.getsize(p)
+
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
-    builders = {
-        "hero":  (build_hero,  "Ilham Rafiannandha — Senior Full Stack Engineer"),
-        "stack": (build_stack, "Technology stack"),
-        "stats": (build_stats, "Career by the numbers"),
-    }
-    for slug, label, glyph in BADGES:
-        for mode, theme in THEMES.items():
-            path = os.path.join(OUT, f"badge-{slug}-{mode}.svg")
-            with open(path, "w", encoding="utf-8") as fh:
-                fh.write(build_badge(slug, label, glyph, theme))
-            print(f"  {os.path.relpath(path, ROOT):28s} {os.path.getsize(path):>7,} b")
-    for base, (fn, title) in builders.items():
-        for mode, theme in THEMES.items():
-            path = os.path.join(OUT, f"{base}-{mode}.svg")
-            with open(path, "w", encoding="utf-8") as fh:
-                fh.write(fn(title, theme))
-            print(f"  {os.path.relpath(path, ROOT):28s} {os.path.getsize(path):>7,} b")
+    for f in os.listdir(OUT):
+        os.remove(os.path.join(OUT, f))
+    total = 0
+    for mode, t in THEMES.items():
+        for base, svg in (("hero", build_hero(t)), ("stats", build_stats(t)), ("stack", build_stack(t))):
+            total += emit(f"{base}-{mode}.svg", svg)
+        for title, col in SECTIONS:
+            slug = title.lower().replace(" ", "-")
+            total += emit(f"sec-{slug}-{mode}.svg", build_section(title, col, t))
+        for slug, label, col, glyph in BADGES:
+            total += emit(f"badge-{slug}-{mode}.svg", build_badge(slug, label, col, glyph, t))
+    print(f"  {len(os.listdir(OUT))} files, {total/1024:.0f} KB")

@@ -1,8 +1,23 @@
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/hero-dark.svg?v=3"><img alt="Bonsky - Senior Full Stack Engineer" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/hero-light.svg?v=3" width="100%"></picture>
+R = "https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets"
+V = "v=3"
 
-<a href="https://www.linkedin.com/in/ilhamrafi44/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-linkedin-dark.svg?v=3"><img alt="LinkedIn" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-linkedin-light.svg?v=3" height="44"></picture></a> <a href="mailto:ilhamrafi44@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-email-dark.svg?v=3"><img alt="Email" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-email-light.svg?v=3" height="44"></picture></a> <a href="https://sblnet.id"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-sblnet-dark.svg?v=3"><img alt="SBLNET" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-sblnet-light.svg?v=3" height="44"></picture></a>
+def pic(name, alt, **kw):
+    """One physical line: multi-line <picture> makes GitHub split the <p>."""
+    attrs = "".join(f' {k}="{v}"' for k, v in kw.items())
+    return (f'<picture><source media="(prefers-color-scheme: dark)" srcset="{R}/{name}-dark.svg?{V}">'
+            f'<img alt="{alt}" src="{R}/{name}-light.svg?{V}"{attrs}></picture>')
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-whoami-dark.svg?v=3"><img alt="WHOAMI" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-whoami-light.svg?v=3" height="48"></picture>
+def sec(slug, title):
+    return f'### {pic("sec-" + slug, title, height="48")}'
+
+def badge(slug, alt, href):
+    return f'<a href="{href}">{pic("badge-" + slug, alt, height="44")}</a>'
+
+md = f"""{pic("hero", "Bonsky - Senior Full Stack Engineer", width="100%")}
+
+{badge("linkedin", "LinkedIn", "https://www.linkedin.com/in/ilhamrafi44/")} {badge("email", "Email", "mailto:ilhamrafi44@gmail.com")} {badge("sblnet", "SBLNET", "https://sblnet.id")}
+
+{sec("whoami", "WHOAMI")}
 
 ```console
 $ whoami
@@ -41,11 +56,11 @@ $ sudo make me a sandwich
 Okay.
 ```
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-dark.svg?v=3"><img alt="6+ years shipping, 11 companies and clients, 25+ products shipped, 0 known bugs" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-light.svg?v=3" width="100%"></picture>
+{pic("stats", "6+ years shipping, 11 companies and clients, 25+ products shipped, 0 known bugs", width="100%")}
 
 <sub><b>*</b> the load-bearing word in that last box is <i>known</i>.</sub>
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-now-dark.svg?v=3"><img alt="NOW" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-now-light.svg?v=3" height="48"></picture>
+{sec("now", "NOW")}
 
 - 🛰️ **Keeping Jakarta online** at **[SBLNET](https://sblnet.id)** — an ISP platform where 27 Spring Modulith modules, 8 PostgreSQL databases and a rack of MikroTik routers collectively decide whether your stream buffers tonight. Genuinely no pressure.
 - 🏠 **Two property platforms in production** — [BigProperty](https://bigproperty.online) and [White Box](https://propertywhitebox.com). Real bookings, real money, real messages at 2 AM.
@@ -53,11 +68,11 @@ Okay.
 - 🍎 **[mfu-macos](https://github.com/ilhamrafi44/mfu-macos)** — a native Xiaomi bootloader-unlock CLI for Apple Silicon, written entirely out of spite for having to boot Windows.
 - 📈 **nocturads** — a CPA routing engine in Go + Fiber + SvelteKit + TimescaleDB, because apparently my idea of resting is writing another backend.
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-the-arsenal-dark.svg?v=3"><img alt="THE ARSENAL" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-the-arsenal-light.svg?v=3" height="48"></picture>
+{sec("the-arsenal", "THE ARSENAL")}
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stack-dark.svg?v=3"><img alt="Stack: backend, frontend, mobile, data, infrastructure, network, payments, systems" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stack-light.svg?v=3" width="100%"></picture>
+{pic("stack", "Stack: backend, frontend, mobile, data, infrastructure, network, payments, systems", width="100%")}
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-war-stories-dark.svg?v=3"><img alt="WAR STORIES" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-war-stories-light.svg?v=3" height="48"></picture>
+{sec("war-stories", "WAR STORIES")}
 
 #### 🛰️ ISP Subscriber Platform — [SBLNET](https://sblnet.id)
 
@@ -182,7 +197,7 @@ A coconut-shell charcoal exporter. The site sells in three languages; the CRM ru
 
 </details>
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-career-dark.svg?v=3"><img alt="CAREER" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-career-light.svg?v=3" height="48"></picture>
+{sec("career", "CAREER")}
 
 | Role | Company | Period |
 |---|---|---|
@@ -231,7 +246,7 @@ third-party integrations, and data-privacy practices for genuinely sensitive use
 
 </details>
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-shipped-it-dark.svg?v=3"><img alt="SHIPPED IT" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-shipped-it-light.svg?v=3" height="48"></picture>
+{sec("shipped-it", "SHIPPED IT")}
 
 **Live right now:**
 
@@ -256,7 +271,7 @@ third-party integrations, and data-privacy practices for genuinely sensitive use
 (2023), Sabilec / PT Saudara Bina Electric (2023), Gravilla.id hotel &amp; ticket booking
 (2022), Safara Digitech (2020), Segment Events (2020), newstvri.com (2017).
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-talked-at-people-dark.svg?v=3"><img alt="TALKED AT PEOPLE" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-talked-at-people-light.svg?v=3" height="48"></picture>
+{sec("talked-at-people", "TALKED AT PEOPLE")}
 
 - **2022** — Speaker, *"Web Application in the World of Work"* — HMIK Talk, Pertamina University
 - **2022** — Main speaker, *"Ngoding Bareng"* — Permikomnas Jakarta
@@ -266,7 +281,7 @@ I choose to read that as a good sign.</sub>
 
 **Universitas Darma Persada** · Jakarta — Bachelor of English Literature, GPA 3.60 / 4.00 · 2018 — 2023
 
-### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-say-hi-dark.svg?v=3"><img alt="SAY HI" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-say-hi-light.svg?v=3" height="48"></picture>
+{sec("say-hi", "SAY HI")}
 
 Got a system that has to balance to the cent, stay online at 3 AM, or ship to both app
 stores? That is my favourite kind of conversation.
@@ -300,3 +315,6 @@ python3 tools/build_assets.py   # regenerates all 28 files in assets/
 </details>
 
 <sub><i>Interested in new things. Addicted to code. That's all.</i></sub>
+"""
+open("README.md", "w", encoding="utf-8").write(md)
+print(f"README.md: {len(md.splitlines())} lines")
