@@ -217,7 +217,7 @@ def build_hero(t):
 STATS = [("6+", "YEARS SHIPPING", "yellow", -1.3),
          ("11", "COMPANIES & CLIENTS", "cyan", 1.1),
          ("25+", "PRODUCTS SHIPPED", "lime", -1.0),
-         ("0", "KNOWN BUGS *", "pink", 1.4),
+         ("NaN", "KNOWN BUGS *", "pink", 1.4),
          ("@CAT", "CAT NAMED CIMOL", "orange", -1.6)]
 
 def build_stats(t):

@@ -45,9 +45,9 @@ $ sudo make me a sandwich
 Okay.
 ```
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-dark.ae0043d1.svg"><img alt="6+ years shipping, 11 companies and clients, 25+ products shipped, 0 known bugs" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-light.96b12cdd.svg" width="100%"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-dark.9cc8aa5b.svg"><img alt="6+ years shipping, 11 companies and clients, 25+ products shipped, NaN known bugs, 1 cat named Cimol" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-light.b3a4579f.svg" width="100%"></picture>
 
-<sub><b>*</b> the load-bearing word in that last box is <i>known</i>.</sub>
+<sub><b>*</b> this tile used to say <code>0</code>. That claim was, itself, the bug. <code>NaN</code> is the honest answer — the count exists, I am simply not prepared to compute it.</sub>
 
 ### <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-now-dark.a8dd3a4d.svg"><img alt="NOW" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/sec-now-light.e0cb4062.svg" height="48"></picture>
 

@@ -68,9 +68,9 @@ $ sudo make me a sandwich
 Okay.
 ```
 
-{pic("stats", "6+ years shipping, 11 companies and clients, 25+ products shipped, 0 known bugs", width="100%")}
+{pic("stats", "6+ years shipping, 11 companies and clients, 25+ products shipped, NaN known bugs, 1 cat named Cimol", width="100%")}
 
-<sub><b>*</b> the load-bearing word in that last box is <i>known</i>.</sub>
+<sub><b>*</b> this tile used to say <code>0</code>. That claim was, itself, the bug. <code>NaN</code> is the honest answer — the count exists, I am simply not prepared to compute it.</sub>
 
 {sec("now", "NOW")}
 
