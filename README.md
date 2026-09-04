@@ -165,6 +165,32 @@ does not negotiate.
 </details>
 
 <details>
+<summary><b>🏛️ DPUPR Musi Banyuasin — a government portal on a CMS I actually wrote</b></summary>
+
+<br>
+
+[dpupr.mubakab.go.id](https://dpupr.mubakab.go.id/) is the public portal for the Public Works and
+Spatial Planning agency of Musi Banyuasin Regency, shipped under the name **INFRALOK**.
+
+The easy version of this job is a theme and a plugin directory. The problem with the easy
+version is that the people updating the site are civil servants, not developers, and every
+plugin is a future CVE somebody else has to patch.
+
+So it runs on a purpose-built Laravel CMS instead:
+
+- **Pages and posts** with categories and tags
+- **Nested menu builder** — menus and menu items as first-class records, so navigation is edited, not deployed
+- **Media library** for documents and images
+- **Composable home page** — `HomeSection` / `HomeSectionItem` let the landing page be rearranged from the admin panel without touching a Blade file
+- **Role-based admin** for the staff who keep it current
+
+Small surface area, no plugin ecosystem to audit, and nobody has to call me to publish an announcement.
+
+<sub>Laravel · Blade · Tailwind · MySQL</sub>
+
+</details>
+
+<details>
 <summary><b>🔥 Multilingual site + sales CRM — PT Taiba Cococha Indonesia</b></summary>
 
 <br>
@@ -241,6 +267,7 @@ third-party integrations, and data-privacy practices for genuinely sensitive use
 | **Big Property** | Apartment and room booking platform | [bigproperty.online ↗](https://bigproperty.online) |
 | **White Box Property** | Daily and transit apartment rental — Bekasi, Cikarang, Bogor | [propertywhitebox.com ↗](https://propertywhitebox.com) |
 | **Itoya** | Self-photo studio booking + remote studio management | [itoya.my.id ↗](https://itoya.my.id) |
+| **DPUPR Musi Banyuasin** | Government agency portal ("INFRALOK") on a custom Laravel CMS | [dpupr.mubakab.go.id ↗](https://dpupr.mubakab.go.id/) |
 | **CoffeeLabs** | Company site | [coffeelabs.co.id ↗](https://www.coffeelabs.co.id/) |
 | **CoffeeLabs HRIS** | Attendance, GPS geofence, face recognition | [app.coffeelabs.co.id ↗](https://app.coffeelabs.co.id/) |
 | **CoffeeLabs Back Office** | Admin and operations console | [admin.coffeelabs.co.id ↗](https://admin.coffeelabs.co.id/) |
