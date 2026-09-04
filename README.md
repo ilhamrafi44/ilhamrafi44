@@ -1,17 +1,17 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/hero-dark.svg?v=1">
-  <img alt="Ilham Rafiannandha — Senior Full Stack Engineer, Jakarta" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/hero-light.svg?v=1" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/hero-dark.svg?v=2">
+  <img alt="Ilham Rafiannandha — Senior Full Stack Engineer, Jakarta" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/hero-light.svg?v=2" width="100%">
 </picture>
 
 <a href="https://www.linkedin.com/in/ilhamrafi44/"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-linkedin-dark.svg?v=1">
-  <img alt="LinkedIn" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-linkedin-light.svg?v=1" height="40"></picture></a>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-linkedin-dark.svg?v=2">
+  <img alt="LinkedIn" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-linkedin-light.svg?v=2" height="40"></picture></a>
 <a href="mailto:ilhamrafi44@gmail.com"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-email-dark.svg?v=1">
-  <img alt="Email" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-email-light.svg?v=1" height="40"></picture></a>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-email-dark.svg?v=2">
+  <img alt="Email" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-email-light.svg?v=2" height="40"></picture></a>
 <a href="https://github.com/ilhamrafi44/isp-platform-architecture"><picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-casestudies-dark.svg?v=1">
-  <img alt="Case Studies" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-casestudies-light.svg?v=1" height="40"></picture></a>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-casestudies-dark.svg?v=2">
+  <img alt="Case Studies" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-casestudies-light.svg?v=2" height="40"></picture></a>
 
 ## `whoami`
 
@@ -35,8 +35,8 @@ Ended up writing considerably more Java than essays. No regrets.
 ```
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-dark.svg?v=1">
-  <img alt="6+ years in production · 11 companies and clients · 25+ products shipped · 87 repositories" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-light.svg?v=1" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-dark.svg?v=2">
+  <img alt="6+ years in production · 11 companies and clients · 25+ products shipped · 87 repositories" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stats-light.svg?v=2" width="100%">
 </picture>
 
 ## `~/now`
@@ -49,8 +49,8 @@ Ended up writing considerably more Java than essays. No regrets.
 ## `~/stack`
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stack-dark.svg?v=1">
-  <img alt="Technology stack: backend, frontend, mobile, data, infrastructure, network, payments, systems" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stack-light.svg?v=1" width="100%">
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stack-dark.svg?v=2">
+  <img alt="Technology stack: backend, frontend, mobile, data, infrastructure, network, payments, systems" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/stack-light.svg?v=2" width="100%">
 </picture>
 
 ## `~/selected-work`
