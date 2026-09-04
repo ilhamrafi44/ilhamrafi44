@@ -336,8 +336,13 @@ def g_signal():
             '<path d="M3.5 13.5a9 9 0 0 1 13 0"/><path d="M6.8 16.6a4.6 4.6 0 0 1 6.4 0"/>'
             '<circle cx="10" cy="19" r="1.4" fill="#000"/><path d="M.6 10.2a13.4 13.4 0 0 1 18.8 0"/></g>')
 
+def g_globe():
+    return ('<g fill="none" stroke="#000" stroke-width="2.2">'
+            '<circle cx="10" cy="10" r="9"/><path d="M1 10h18"/>'
+            '<path d="M10 1c2.4 2.5 3.7 5.6 3.7 9S12.4 16.5 10 19c-2.4-2.5-3.7-5.6-3.7-9S7.6 3.5 10 1z"/></g>')
+
 BADGES = [("linkedin","LinkedIn","cyan",None), ("email","Email","yellow",g_envelope),
-          ("sblnet","SBLNET","pink",g_signal)]
+          ("sblnet","SBLNET","pink",g_signal), ("site","Portfolio","lime",g_globe)]
 
 def build_badge(slug, label, col, glyph, t):
     H, SH, PADX, ICON = 46, 6, 17, 20

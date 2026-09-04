@@ -23,7 +23,7 @@ def badge(slug, alt, href):
 
 md = f"""{pic("hero", "Bonsky - Senior Full Stack Engineer", width="100%")}
 
-{badge("linkedin", "LinkedIn", "https://www.linkedin.com/in/ilhamrafi44/")} {badge("email", "Email", "mailto:ilhamrafi44@gmail.com")} {badge("sblnet", "SBLNET", "https://sblnet.id")}
+{badge("linkedin", "LinkedIn", "https://www.linkedin.com/in/ilhamrafi44/")} {badge("email", "Email", "mailto:ilhamrafi44@gmail.com")} {badge("sblnet", "SBLNET", "https://sblnet.id")} {badge("site", "Portfolio", "https://ilhamrafi44.github.io")}
 
 {sec("whoami", "WHOAMI")}
 
@@ -385,6 +385,7 @@ stores? That is my favourite kind of conversation.
 
 - 💼 [linkedin.com/in/ilhamrafi44](https://www.linkedin.com/in/ilhamrafi44/)
 - ✉️ [ilhamrafi44@gmail.com](mailto:ilhamrafi44@gmail.com)
+- 🌐 [ilhamrafi44.github.io](https://ilhamrafi44.github.io) — the whole thing, bilingual, with considerably more cats
 - 📍 Jakarta, Indonesia · UTC+7
 
 {pic("cat-wave", "A cat waving hello", height="130")}
