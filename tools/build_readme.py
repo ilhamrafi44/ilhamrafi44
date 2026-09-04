@@ -180,6 +180,26 @@ does not negotiate.
 </details>
 
 <details>
+<summary><b>🎟️ Taman Safari Bogor — ticketing from the gate to the back office</b></summary>
+
+<br>
+
+Built for **GlobalTix Teknologi Indonesia**: the domestic ticketing site, its back office, and
+**GT Checker**, the React Native app staff hold at the park entrance.
+
+- **[domestic.tamansafaribogor.com](https://domestic.tamansafaribogor.com/)** — public ticketing plus the back office behind it
+- **GT Checker (React Native / Expo)** — QR and barcode scanning built for a queue, not a demo, with on-device ticket printing
+- **Fraud detection** — reused and forged tickets rejected at the gate rather than discovered in a report afterwards
+- Integrated with the park's existing ticketing infrastructure, and iterated on feedback from the people actually standing at the turnstile
+
+The app and back-office repositories belong to the client, and my access ended when the contract
+did — which is how most contract work goes. The live site is the part I can still point at.
+
+<sub>React Native · Expo · QR / barcode scanning · thermal printing · REST APIs</sub>
+
+</details>
+
+<details>
 <summary><b>🇯🇵 Spectro &amp; ArkaLearn — getting Indonesians hired in Japan</b></summary>
 
 <br>
@@ -273,10 +293,8 @@ A coconut-shell charcoal exporter. The site sells in three languages; the CRM ru
 for workforce training and reskilling. Laravel back end plus front-end integration,
 maintenance and optimisation.
 
-**Taman Safari Indonesia** — Bogor · *Ticket verification app.* A React Native app for staff
-at park entry: QR and barcode processing for fast check-in, fraud detection to block reused
-or forged tickets, integrated with the park's existing ticketing infrastructure. Shipped
-updates based on feedback from people actually standing at the gate.
+**Taman Safari Indonesia** — Bogor · *Ticketing platform.* Site, back office and the gate-checker
+app, for GlobalTix Teknologi Indonesia — see the war story above.
 
 **PT Arka Spektrum Solutindo** — *EduTech job portal.* Built Spectro and
 [ArkaLearn](https://www.arkalearn.com/en) end to end — see the war story above.
@@ -304,6 +322,7 @@ third-party integrations, and data-privacy practices for genuinely sensitive use
 | **Big Property** | Apartment and room booking platform | [bigproperty.online ↗](https://bigproperty.online) |
 | **White Box Property** | Daily and transit apartment rental — Bekasi, Cikarang, Bogor | [propertywhitebox.com ↗](https://propertywhitebox.com) |
 | **Itoya** | Self-photo studio booking + remote studio management | [itoya.my.id ↗](https://itoya.my.id) |
+| **The Great Taman Safari Bogor** | Domestic ticketing site + back office, with a React Native gate-checker app | [domestic.tamansafaribogor.com ↗](https://domestic.tamansafaribogor.com/) |
 | **DPUPR Musi Banyuasin** | Government agency portal ("INFRALOK") on a custom Laravel CMS | [dpupr.mubakab.go.id ↗](https://dpupr.mubakab.go.id/) |
 | **ArkaLearn** | Japanese-language EdTech (JLPT N5-N3, SSW) feeding the Spectro job portal | [arkalearn.com ↗](https://www.arkalearn.com/en) |
 | **CoffeeLabs** | Company site | [coffeelabs.co.id ↗](https://www.coffeelabs.co.id/) |
