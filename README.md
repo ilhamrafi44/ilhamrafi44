@@ -296,12 +296,14 @@ third-party integrations, and data-privacy practices for genuinely sensitive use
 | **CoffeeLabs Back Office** | Admin and operations console | [admin.coffeelabs.co.id ↗](https://admin.coffeelabs.co.id/) |
 | **Elteyba Tours** | Umrah &amp; Hajj agency platform | [elteybatours.com ↗](https://www.elteybatours.com) |
 | **Elteyba GO** | Jamaah portal | [elteybago ↗](https://elteybago.eilhamzah.com/login) |
-| **Aerocam Global Technology** | Drone training centre — corporate site | [aerocam.co.id ↗](https://www.aerocam.co.id/) |
+| **Aerocam Global Technology** <sup>*(ex-Indonesia Aero Camera)*</sup> | Drone training centre. I built the original 2021 site; the company has rebranded and rebuilt since, though elements of mine survive on the current one | [aerocam.co.id ↗](https://www.aerocam.co.id/) |
 | **Taiba Cococha** | Trilingual corporate site (EN/ID/AR) + sales CRM | [taibacoco.co.id ↗](https://taibacoco.co.id) |
 | **Gudang Dus Bandung** | B2B custom packaging catalogue — products, categories, tags, client showcase, self-serve admin | [gudangdusbandung.com ↗](https://gudangdusbandung.com/) |
 | **Hasanain Center** | Company profile + registration system | [instagram ↗](https://www.instagram.com/hasanain.center/) |
 | **Cahaya Al-Kahfi** | Donation platform | [facebook ↗](https://web.facebook.com/p/Cahaya-Al-Kahfi-100063858983042/) |
 | **SmartHajj** | Umrah &amp; Hajj platform — Laravel + Flutter | smarthajj.co.id |
+
+<sub>On Aerocam: the 2021 build was mine, the current site largely is not — I would rather say that than quietly claim a redesign somebody else shipped. The old <code>iac.co.id</code> domain now belongs to an unrelated company, so it is deliberately not linked.</sub>
 
 <sub>The packaging site's <code>&lt;title&gt;</code> ends with <b>"It's Over 9000!"</b>. That was a deliberate decision, made by a grown adult, for a company that sells cardboard. I regret nothing.</sub>
 
