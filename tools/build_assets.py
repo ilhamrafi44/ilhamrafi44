@@ -38,8 +38,76 @@ _W = {" ": .27, ".": .28, ",": .28, ":": .28, ";": .28, "!": .30, "|": .26,
       "-": .35, "–": .5, "·": .34, "/": .33, "(": .34, ")": .34, "+": .58,
       "×": .58, "&": .70, "3": .58, "6": .58, "8": .58}
 
+MEASURED = {
+    ("Java 17+", 13, 600): 54.98,
+    ("Spring Boot", 13, 600): 74.52,
+    ("Spring Modulith", 13, 600): 100.59,
+    ("Spring Security", 13, 600): 97.79,
+    ("Laravel", 13, 600): 45.67,
+    ("NestJS", 13, 600): 45.53,
+    ("Node.js", 13, 600): 48.29,
+    ("Go / Fiber", 13, 600): 60.75,
+    ("PHP", 13, 600): 26.95,
+    ("Next.js", 13, 600): 44.23,
+    ("React", 13, 600): 36.19,
+    ("Vue 3 + Pinia", 13, 600): 82.13,
+    ("TypeScript", 13, 600): 69.13,
+    ("JavaScript", 13, 600): 67.19,
+    ("Tailwind", 13, 600): 51.86,
+    ("SvelteKit", 13, 600): 56.86,
+    ("React Native", 13, 600): 80.0,
+    ("Flutter", 13, 600): 42.11,
+    ("Dart", 13, 600): 27.5,
+    ("Kotlin", 13, 600): 36.27,
+    ("Swift", 13, 600): 32.78,
+    ("Android", 13, 600): 50.06,
+    ("PostgreSQL", 13, 600): 75.34,
+    ("MySQL", 13, 600): 45.18,
+    ("Redis", 13, 600): 34.99,
+    ("TimescaleDB", 13, 600): 82.6,
+    ("Firebase", 13, 600): 54.21,
+    ("Multi-datasource ACID", 13, 600): 143.96,
+    ("Docker", 13, 600): 44.9,
+    ("Jenkins", 13, 600): 48.82,
+    ("Nginx", 13, 600): 36.56,
+    ("GitHub Actions", 13, 600): 95.47,
+    ("Git", 13, 600): 18.31,
+    ("Grafana", 13, 600): 50.0,
+    ("Linux / VPS", 13, 600): 71.08,
+    ("MikroTik RouterOS", 13, 600): 117.9,
+    ("FreeRADIUS / AAA", 13, 600): 116.03,
+    ("PPPoE", 13, 600): 41.09,
+    ("RADIUS Accounting", 13, 600): 124.9,
+    ("CoA Disconnect", 13, 600): 100.9,
+    ("OLT & NOC", 13, 600): 70.34,
+    ("Duitku", 13, 600): 41.37,
+    ("BRI Fixed VA", 13, 600): 79.38,
+    ("Midtrans", 13, 600): 56.04,
+    ("QRIS", 13, 600): 31.23,
+    ("Double-Entry GL", 13, 600): 105.29,
+    ("Reconciliation", 13, 600): 89.06,
+    ("C++", 13, 600): 26.4,
+    ("Rust", 13, 600): 28.8,
+    ("Python", 13, 600): 44.9,
+    ("WebSocket", 13, 600): 71.54,
+    ("Express", 13, 600): 50.16,
+    ("LinkedIn", 14, 600): 62.29,
+    ("Email", 14, 600): 40.15,
+    ("Case Studies", 14, 600): 88.4,
+}
+
+# Widths measured in-browser against the SANS stack (Chromium/macOS -> SF Pro).
+# Other platforms resolve to Segoe UI / Roboto, both narrower, so SAFETY only
+# ever buys extra right padding -- it never clips a label.
+SAFETY = 1.05
+
+
 def tw(s, size, weight=600, tracking=0.0):
-    """Estimated rendered width of `s` in px."""
+    """Rendered width of `s` in px: measured where known, estimated otherwise."""
+    tr = tracking * max(len(s) - 1, 0)
+    hit = MEASURED.get((s, size, weight))
+    if hit is not None:
+        return hit * SAFETY + tr
     total = 0.0
     for ch in s:
         if ch in _W:      total += _W[ch]
@@ -47,7 +115,7 @@ def tw(s, size, weight=600, tracking=0.0):
         elif ch.isupper():total += .66
         else:             total += .545
     total *= size * (1.02 if weight >= 700 else 1.01 if weight >= 600 else 1.0)
-    return total + tracking * max(len(s) - 1, 0)
+    return total * 1.08 * SAFETY + tr      # unmeasured: lean wide, never clip
 
 def twm(s, size, tracking=0.0):
     """Monospace advance. Every mono in the stack sits at ~0.60em."""
@@ -110,11 +178,11 @@ def build_hero(name, t):
 
     # ISP topology: core → distribution → access → CPE. On-brand for an
     # engineer who runs FreeRADIUS/MikroTik in production.
-    core = (742, 168)
-    dist = [(884, 92), (884, 168), (884, 244)]
+    core = (700, 168)
+    dist = [(858, 92), (858, 168), (858, 244)]
     acc_y = [58, 102, 146, 190, 234, 278]
     access = [(1016, y) for y in acc_y]
-    cpe = [(1132, y) for y in acc_y]
+    cpe = [(1174, y) for y in acc_y]
     d2a = {0: (0, 1), 1: (2, 3), 2: (4, 5)}
 
     css = [
@@ -137,11 +205,11 @@ def build_hero(name, t):
                 '<stop offset="0" stop-color="#fff" stop-opacity="1"/>'
                 '<stop offset=".62" stop-color="#fff" stop-opacity=".85"/>'
                 '<stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>')
-    defs.append('<mask id="hmask"><rect x="620" y="0" width="580" height="330" fill="url(#hfade)"/></mask>')
+    defs.append('<mask id="hmask"><rect x="590" y="0" width="610" height="330" fill="url(#hfade)"/></mask>')
 
     body.append('<g mask="url(#hmask)">')
-    body.append('<rect x="620" y="0" width="580" height="330" fill="url(#hgrid)"/>')
-    body.append(f'<ellipse cx="945" cy="{core[1]}" rx="255" ry="168" fill="url(#hglow)"/>')
+    body.append('<rect x="590" y="0" width="610" height="330" fill="url(#hgrid)"/>')
+    body.append(f'<ellipse cx="925" cy="{core[1]}" rx="272" ry="168" fill="url(#hglow)"/>')
     body.append('</g>')
 
     # edges
@@ -193,27 +261,27 @@ def build_hero(name, t):
     # ── left column
     pill = "OPEN TO WORK  ·  JAKARTA, ID  ·  UTC+7"
     pw = 34 + twm(pill, 11, 1.5) + 16
-    body.append(f'<rect x="54" y="46" width="{pw:.0f}" height="28" rx="14" fill="{a}" fill-opacity=".10" '
+    body.append(f'<rect x="2" y="46" width="{pw:.0f}" height="28" rx="14" fill="{a}" fill-opacity=".10" '
                 f'stroke="{a}" stroke-opacity=".38"/>')
-    body.append(f'<circle class="nd" cx="74" cy="60" r="3.6" fill="{a}"/>')
-    body.append(f'<text x="88" y="64.5" font-family="{MONO}" font-size="11" font-weight="500" '
+    body.append(f'<circle class="nd" cx="22" cy="60" r="3.6" fill="{a}"/>')
+    body.append(f'<text x="36" y="64.5" font-family="{MONO}" font-size="11" font-weight="500" '
                 f'letter-spacing="1.5" fill="{a}">{pill}</text>')
 
-    body.append(f'<text x="54" y="150" font-family="{SANS}" font-size="56" font-weight="800" '
+    body.append(f'<text x="2" y="150" font-family="{SANS}" font-size="56" font-weight="800" '
                 f'letter-spacing="-1.4" fill="{t["strong"]}">Ilham Rafiannandha</text>')
 
-    body.append(f'<text x="54" y="185" font-family="{SANS}" font-size="18.5" font-weight="600" '
+    body.append(f'<text x="2" y="185" font-family="{SANS}" font-size="18.5" font-weight="600" '
                 f'fill="{t["text"]}">Senior Full Stack Engineer'
                 f'<tspan fill="{t["faint"]}">  ·  </tspan>'
                 f'<tspan fill="{t["muted"]}" font-weight="500">ISP platforms, fintech &amp; mobile</tspan></text>')
 
     tag = "// Interested in new things. Addicted to code. That's all."
-    body.append(f'<text x="54" y="216" font-family="{MONO}" font-size="13.5" fill="{t["muted"]}">{esc(tag)}'
+    body.append(f'<text x="2" y="216" font-family="{MONO}" font-size="13.5" fill="{t["muted"]}">{esc(tag)}'
                 f'<tspan class="cur" fill="{a}">\u2588</tspan></text>')
 
-    body.append(f'<line x1="54" y1="250" x2="640" y2="250" stroke="{t["border"]}"/>')
+    body.append(f'<line x1="2" y1="250" x2="588" y2="250" stroke="{t["border"]}"/>')
     strip = "java · spring modulith · next.js · react native · postgresql · mikrotik · freeradius"
-    body.append(f'<text x="54" y="278" font-family="{MONO}" font-size="12" letter-spacing=".3" '
+    body.append(f'<text x="2" y="278" font-family="{MONO}" font-size="12" letter-spacing=".3" '
                 f'fill="{t["faint"]}">{esc(strip)}</text>')
 
     return wrap(W, H, defs, body, css, name)
@@ -274,8 +342,8 @@ STACK = [
 
 def build_stack(name, t):
     W = 1200
-    L_X, C_X, MAXX = 54, 200, 1146        # label column, chip column, wrap edge — all
-    RH, GAP, RGAP, PAD = 34, 9, 13, 22    # sharing the x=54 left edge used by hero/stats
+    L_X, C_X, MAXX = 2, 104, 1198         # label column, chip column, wrap edge — all
+    RH, GAP, RGAP, PAD = 34, 9, 13, 22    # flush with the README text column
     FS = 13
     ICON_LEAD, DOT_LEAD, RPAD = 39, 24, 14
     used, y = set(), PAD
@@ -320,7 +388,7 @@ STATS = [("6+", "YEARS IN PRODUCTION"), ("11", "COMPANIES & CLIENTS"),
 
 def build_stats(name, t):
     W, H = 1200, 148
-    X0, X1, Y0, PH = 54, 1146, 14, 120
+    X0, X1, Y0, PH = 1, 1199, 14, 120
     body = [f'<rect x="{X0}" y="{Y0}" width="{X1-X0}" height="{PH}" rx="16" '
             f'fill="{t["surface"]}" stroke="{t["border"]}"/>']
     colw = (X1 - X0) / len(STATS)

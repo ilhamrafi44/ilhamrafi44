@@ -1,5 +1,3 @@
-<div align="center">
-
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/hero-dark.svg?v=1">
   <img alt="Ilham Rafiannandha — Senior Full Stack Engineer, Jakarta" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/hero-light.svg?v=1" width="100%">
@@ -14,8 +12,6 @@
 <a href="https://github.com/ilhamrafi44/isp-platform-architecture"><picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-casestudies-dark.svg?v=1">
   <img alt="Case Studies" src="https://raw.githubusercontent.com/ilhamrafi44/ilhamrafi44/main/assets/badge-casestudies-light.svg?v=1" height="40"></picture></a>
-
-</div>
 
 ## `whoami`
 
@@ -153,19 +149,21 @@ Premium coconut-shell charcoal exporter — the site sells in three languages, t
 
 ## `~/career`
 
-| | Role | Company | Period |
-|---|---|---|---|
-| 🛰️ | Senior Full Stack Engineer | **PT Surya Bestari Lestari (SBLNET)** · Jakarta | Dec 2025 — Jul 2026 |
-| 💳 | Full Stack Developer *(Contract)* | **PT Cashlez Worldwide Indonesia** · Jakarta | Mar 2025 — Dec 2025 |
-| 🧩 | Full Stack Developer *(Contract)* · Team Lead | **PT Cyber Lab Indonesia** · Jakarta | Jun 2023 — Feb 2025 |
-| 🎓 | Full Stack Developer *(Freelance)* | **ProSpark Pte Ltd** · Singapore | Jul 2024 — Aug 2024 |
-| 🎟️ | Full Stack Developer *(Freelance)* | **Taman Safari Indonesia** · Bogor | Nov 2023 — Jan 2024 |
-| 🌏 | Full Stack Developer *(Freelance)* | **PT Arka Spektrum Solutindo** · Jakarta | Sep 2023 — Dec 2023 |
-| 🗽 | Mobile Developer *(Freelance)* | **Nghbr INC** · New York City, USA | Jun 2023 — Aug 2023 |
-| 🧘 | Full Stack Engineer *(Freelance)* | **Remedi Indonesia** · Jakarta | Nov 2022 — May 2023 |
-| 🕋 | Full Stack Developer *(Contract)* | **PT Elteyba Medina Fauzana** · Jakarta | Apr 2021 — Nov 2022 |
-| 🔥 | Full Stack Web Developer *(Contract)* | **PT Taiba Cococha Indonesia** · Jakarta | Feb 2020 — Apr 2021 |
-| 📺 | Full Stack Web Developer *(Internship)* | **TVRI** · Jakarta | Mar 2017 — Sep 2017 |
+| Role | Company | Period |
+|---|---|---|
+| 🛰️ Senior Full Stack Engineer | **PT Surya Bestari Lestari** *(SBLNET)* | Dec 2025 – Jul 2026 |
+| 💳 Full Stack Developer *(Contract)* | **PT Cashlez Worldwide Indonesia** | Mar 2025 – Dec 2025 |
+| 🧩 Full Stack Developer *(Contract)* · Team Lead | **PT Cyber Lab Indonesia** | Jun 2023 – Feb 2025 |
+| 🎓 Full Stack Developer *(Freelance)* | **ProSpark Pte Ltd** · Singapore | Jul 2024 – Aug 2024 |
+| 🎟️ Full Stack Developer *(Freelance)* | **Taman Safari Indonesia** · Bogor | Nov 2023 – Jan 2024 |
+| 🌏 Full Stack Developer *(Freelance)* | **PT Arka Spektrum Solutindo** | Sep 2023 – Dec 2023 |
+| 🗽 Mobile Developer *(Freelance)* | **Nghbr INC** · New York City | Jun 2023 – Aug 2023 |
+| 🧘 Full Stack Engineer *(Freelance)* | **Remedi Indonesia** | Nov 2022 – May 2023 |
+| 🕋 Full Stack Developer *(Contract)* | **PT Elteyba Medina Fauzana** | Apr 2021 – Nov 2022 |
+| 🔥 Full Stack Web Developer *(Contract)* | **PT Taiba Cococha Indonesia** | Feb 2020 – Apr 2021 |
+| 📺 Full Stack Web Developer *(Internship)* | **TVRI** | Mar 2017 – Sep 2017 |
+
+<sub>Jakarta, Indonesia unless noted otherwise.</sub>
 
 <details>
 <summary>Details on the freelance & contract engagements</summary>
