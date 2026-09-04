@@ -336,6 +336,21 @@ def build_badge(slug, label, col, glyph, t):
     a.append(text(2 + PADX + ICON + 11, 2 + H/2 + 6, label, 15, "#000000", "d", 900))
     return wrap(round(w + SH + 4), H + SH + 4, [], a, [], label)
 
+# ───────────────────────────────────────────────────── case-study banner
+BANNERS = [("isp", "ISP PLATFORM", "27 MODULES \u00b7 8 DATABASES \u00b7 ONE MONOLITH", "yellow")]
+
+
+def build_banner(title, sub, col, t):
+    W, H, SH = 1200, 176, 9
+    a = [block(5, 5, W - 14 - SH, H - 14 - SH, POP[col], t, shadow=SH, bw=4),
+         f'<rect x="7" y="7" width="{W-18-SH}" height="34" fill="#000000"/>',
+         text(24, 30, "ARCHITECTURE CASE STUDY", 12, POP[col], "m", 700, tracking=2.2),
+         text(W - 30 - SH, 30, "github.com/ilhamrafi44", 12, POP[col], "m", 400, anchor="end"),
+         text(34, 108, title, 56, "#000000", "d", 900),
+         text(34, 140, sub, 15, "#000000", "d", 900, tracking=1.2)]
+    return wrap(W, H, [], a, [], f"{title} - architecture case study")
+
+
 # ─────────────────────────────────────────────────────────────────── shell
 def wrap(w, h, defs, body, css, title):
     style = f"<style>{''.join(css)}</style>" if css else ""
@@ -368,6 +383,8 @@ if __name__ == "__main__":
         for title, col in SECTIONS:
             slug = title.lower().replace(" ", "-")
             total += emit(f"sec-{slug}-{mode}.svg", build_section(title, col, t))
+        for slug, title, sub, col in BANNERS:
+            total += emit(f"banner-{slug}-{mode}.svg", build_banner(title, sub, col, t))
         for slug, label, col, glyph in BADGES:
             total += emit(f"badge-{slug}-{mode}.svg", build_badge(slug, label, col, glyph, t))
     print(f"  {len(os.listdir(OUT))} files, {total/1024:.0f} KB")
