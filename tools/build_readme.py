@@ -180,6 +180,29 @@ does not negotiate.
 </details>
 
 <details>
+<summary><b>🇯🇵 Spectro &amp; ArkaLearn — getting Indonesians hired in Japan</b></summary>
+
+<br>
+
+Two products, one funnel. **[ArkaLearn](https://www.arkalearn.com/en)** teaches Japanese for work
+— JLPT N5 through N3, SSW preparation, mensetsu (interview) practice. **Spectro** is the job
+portal those learners graduate into.
+
+The domain constraint shapes everything: the users are, by definition, still learning a language,
+and they are applying for a visa category with its own paperwork.
+
+- **Two-sided marketplace** — candidate and employer profiles, role chosen at signup, Google OAuth
+- **Faceted job search** across category, industry, type, career level, experience and qualification — six independent axes, because "worker" is not a search query
+- **Applications tracking**, saved jobs, employer following, per-job view analytics
+- **In-app messaging** (conversations and messages) so hiring does not degrade into a WhatsApp thread nobody can audit
+- **SSW document handling** for Japan's Specified Skilled Worker visa track — the part where a missing file costs someone a job offer
+- **Multi-language throughout**, plus a blog with categories. If your users are learning Japanese, you cannot assume they read English either
+
+<sub>Laravel · Blade · MySQL · Google OAuth · Docker</sub>
+
+</details>
+
+<details>
 <summary><b>🏛️ DPUPR Musi Banyuasin — a government portal on a CMS I actually wrote</b></summary>
 
 <br>
@@ -255,9 +278,8 @@ at park entry: QR and barcode processing for fast check-in, fraud detection to b
 or forged tickets, integrated with the park's existing ticketing infrastructure. Shipped
 updates based on feedback from people actually standing at the gate.
 
-**PT Arka Spektrum Solutindo** — *EduTech job portal.* End-to-end portal for Indonesian
-prospective migrant workers and employers: authentication, job listings, advanced filtering,
-application tracking, candidate–employer messaging.
+**PT Arka Spektrum Solutindo** — *EduTech job portal.* Built Spectro and
+[ArkaLearn](https://www.arkalearn.com/en) end to end — see the war story above.
 
 **Nghbr INC** — New York City · *Hyper-local tech networking app.* Translated complex UI/UX
 into pixel-perfect React Native interfaces, integrated REST APIs with real-time sync, and
@@ -283,6 +305,7 @@ third-party integrations, and data-privacy practices for genuinely sensitive use
 | **White Box Property** | Daily and transit apartment rental — Bekasi, Cikarang, Bogor | [propertywhitebox.com ↗](https://propertywhitebox.com) |
 | **Itoya** | Self-photo studio booking + remote studio management | [itoya.my.id ↗](https://itoya.my.id) |
 | **DPUPR Musi Banyuasin** | Government agency portal ("INFRALOK") on a custom Laravel CMS | [dpupr.mubakab.go.id ↗](https://dpupr.mubakab.go.id/) |
+| **ArkaLearn** | Japanese-language EdTech (JLPT N5-N3, SSW) feeding the Spectro job portal | [arkalearn.com ↗](https://www.arkalearn.com/en) |
 | **CoffeeLabs** | Company site | [coffeelabs.co.id ↗](https://www.coffeelabs.co.id/) |
 | **CoffeeLabs HRIS** | Attendance, GPS geofence, face recognition | [app.coffeelabs.co.id ↗](https://app.coffeelabs.co.id/) |
 | **CoffeeLabs Back Office** | Admin and operations console | [admin.coffeelabs.co.id ↗](https://admin.coffeelabs.co.id/) |
