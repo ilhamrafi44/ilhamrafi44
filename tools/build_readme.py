@@ -74,6 +74,11 @@ Okay.
 
 {sec("war-stories", "WAR STORIES")}
 
+> Most of what I have shipped lives in employer and client repositories — private, and in
+> several cases repositories my access ended with the contract. Eight public repos is not the
+> size of the work; it is the size of what I am allowed to hand you. So: the systems, what was
+> hard about them, and a live URL wherever one still exists.
+
 #### 🛰️ ISP Subscriber Platform — [SBLNET](https://sblnet.id)
 
 An entire ISP's subscriber lifecycle in one platform: onboarding → automated network
@@ -299,9 +304,11 @@ app, for GlobalTix Teknologi Indonesia — see the war story above.
 **PT Arka Spektrum Solutindo** — *EduTech job portal.* Built Spectro and
 [ArkaLearn](https://www.arkalearn.com/en) end to end — see the war story above.
 
-**Nghbr INC** — New York City · *Hyper-local tech networking app.* Translated complex UI/UX
-into pixel-perfect React Native interfaces, integrated REST APIs with real-time sync, and
-kept the UI consistent across every screen size someone could hand me.
+**Nghbr INC** — New York City · *Hyper-local tech networking app.* Built the React Native (Expo)
+app: translated complex UI/UX into pixel-perfect interfaces, integrated REST APIs with real-time
+sync, and kept the UI consistent across every screen size someone could hand me. The company site
+is at [nghbr.framer.website](https://nghbr.framer.website/) — a Framer build, not mine. The app
+repo is client-owned and private.
 
 **Remedi Indonesia** — *Corporate wellbeing platform.* Owned architecture for mobile and
 backend: cross-platform React Native app on a secure Laravel API, real-time chat,
